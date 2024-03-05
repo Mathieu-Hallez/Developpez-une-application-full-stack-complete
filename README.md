@@ -15,16 +15,16 @@ CREATE USER 'user'@'localhost' IDENTIFIED BY '123456';
 ```
 Also grant some privileges to your new MySQL user.
 ```mysql
-GRANT SELECT, INSERT, UPDATE, DELETE ON rentaldb.* TO 'user'@'localhost';
+GRANT SELECT, INSERT, UPDATE, DELETE ON mdd_db.* TO 'user'@'localhost';
 ```
 
 ### 2. Create the database
 Still in a MySQL terminal create a new database named: `mdd_db` and use it.
 ````mysql
-CREATE DATABASE test;
+CREATE DATABASE mdd_db;
 ````
 ````mysql
-USE test;
+USE mdd_db;
 ````
 Once the database created generate them by executing `ressources/sql/script.sql` script that you can find in `./resources/sql` :
 ```mysql
