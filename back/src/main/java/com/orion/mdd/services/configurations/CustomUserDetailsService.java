@@ -1,4 +1,4 @@
-package com.orion.mdd.configurations;
+package com.orion.mdd.services.configurations;
 
 import com.orion.mdd.models.User;
 import com.orion.mdd.services.UserService;
@@ -8,10 +8,12 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Service
 public class CustomUserDetailsService implements UserDetailsService {
 
     @Autowired
