@@ -58,7 +58,7 @@ ALTER TABLE `COMMENT` ADD FOREIGN KEY (`author_id`) REFERENCES `USER` (`id`);
 ALTER TABLE `SUBSCRIBE` ADD FOREIGN KEY (`subscriber_id`) REFERENCES `USER` (`id`);
 ALTER TABLE `SUBSCRIBE` ADD FOREIGN KEY (`topic_id`) REFERENCES `TOPIC` (`id`);
 
-INSERT INTO USER (email, password, username, create_at, update_at) VALUES ('test@test.com', 'test!1234', 'test', now(), now());
+INSERT INTO USER (email, password, username, create_at, update_at) VALUES ('test@test.com', '$2a$10$CCL8/7mMKD3zTk9p625Kzuf30Ykr7vWlKClsXW1Jb6x1v9AMtAVaK', 'test', now(), now());
 INSERT INTO TOPIC (title, description, create_at, update_at) VALUES ('Java Topic', 'Java language topic', now(), now());
 INSERT INTO POST (title, content, topic_id, author_id, create_at, update_at) VALUES ('Primary types', 'Lorem lipsu...', 1, 1, now(), now());
 
