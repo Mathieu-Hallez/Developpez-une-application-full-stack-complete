@@ -1,5 +1,6 @@
 package com.orion.mdd.controllers;
 
+import com.orion.mdd.payloads.authentification.RegisterRequestDto;
 import com.orion.mdd.models.User;
 import com.orion.mdd.payloads.api.ApiResponse;
 import com.orion.mdd.payloads.authentification.LoginRequestDto;
@@ -58,5 +59,17 @@ public class AuthController {
         } catch (BadCredentialsException exception) {
             return new ResponseEntity<>(new ApiResponse(exception.getMessage()), HttpStatus.UNAUTHORIZED);
         }
+    }
+
+    @PostMapping("/register")
+    @SecurityRequirements()
+    public ResponseEntity<?> register(@RequestBody RegisterRequestDto registerRequestDto) {
+        if(this.userService.existsByEmail(registerRequestDto.getEmail())) {
+            return new ResponseEntity<>(new ApiResponse("Error: Email address already used."), HttpStatus.BAD_REQUEST);
+        }
+
+        this.userService.createUser(registerRequestDto.getEmail(), registerRequestDto.getUsername(), registerRequestDto.getPassword());
+
+        return ResponseEntity.ok(new ApiResponse("User registered successfully!"));
     }
 }

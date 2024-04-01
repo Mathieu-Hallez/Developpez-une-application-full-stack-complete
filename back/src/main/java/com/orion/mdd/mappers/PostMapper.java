@@ -11,8 +11,11 @@ import org.mapstruct.Mappings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.sql.Timestamp;
+import java.time.Instant;
+
 @Component
-@Mapper(componentModel = "spring", uses = {AuthorMapper.class, UserService.class, TopicService.class, CommentService.class}, imports = {})
+@Mapper(componentModel = "spring", uses = {AuthorMapper.class, UserService.class, TopicService.class, CommentService.class}, imports = {Timestamp.class, Instant.class})
 public abstract class PostMapper implements EntityMapper<PostDto, Post> {
 
     @Autowired
@@ -29,7 +32,8 @@ public abstract class PostMapper implements EntityMapper<PostDto, Post> {
     @Mappings({
             @Mapping(target = "author", expression = "java(postDto.getAuthor().getId() != null ? this.userService.getUser(postDto.getAuthor().getId()) : null)"),
             @Mapping(target = "topic", expression = "java(postDto.getId() != null ? this.topicService.getByPostId(postDto.getId()) : null)"),
-            @Mapping(target = "comments", expression = "java(postDto.getId() != null ? this.commentService.getAllByPostId(postDto.getId()) : null)")
+            @Mapping(target = "comments", expression = "java(postDto.getId() != null ? this.commentService.getAllByPostId(postDto.getId()) : null)"),
+            @Mapping(target = "createAt", expression = "java(Timestamp.from(Instant.parse(postDto.getCreated_at())))")
     })
     public abstract Post toEntity(PostDto postDto);
 

@@ -13,7 +13,7 @@ import java.util.Set;
 @Table(name = "POST")
 public class Post {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @NotNull
     private Integer id;
 
