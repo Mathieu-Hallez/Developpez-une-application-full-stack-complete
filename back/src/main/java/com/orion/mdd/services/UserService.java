@@ -22,10 +22,6 @@ public class UserService {
     @Lazy
     private PasswordEncoder passwordEncoder;
 
-//    public UserService(PasswordEncoder passwordEncoder) {
-//        this.passwordEncoder = passwordEncoder;
-//    }
-
     public User getUser(final Integer id) {
         return this.userRepository.findById(id).orElse(null);
     }

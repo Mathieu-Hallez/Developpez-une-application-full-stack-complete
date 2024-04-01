@@ -39,7 +39,7 @@ public class AuthController {
 
     @PostMapping("/login")
     @SecurityRequirements()
-    public ResponseEntity<?> getToken(@RequestBody LoginRequestDto loginRequestDto) throws IllegalAccessException {
+    public ResponseEntity<?> getToken(@RequestBody LoginRequestDto loginRequestDto) {
         User user = this.userService.getUser(loginRequestDto.getEmail());
 
         if(user == null) {
@@ -49,7 +49,6 @@ public class AuthController {
         try{
             Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequestDto.getEmail(), loginRequestDto.getPassword()));
             SecurityContextHolder.getContext().setAuthentication(authentication);
-            org.springframework.security.core.userdetails.User userDetails = (org.springframework.security.core.userdetails.User) authentication.getPrincipal();
 
             log.info("Token requested for user: {}", authentication.getAuthorities());
 
