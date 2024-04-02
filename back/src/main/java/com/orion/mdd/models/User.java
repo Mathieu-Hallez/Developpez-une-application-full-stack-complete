@@ -12,12 +12,12 @@ import java.util.Set;
 @Entity
 @Data
 @Table(name = "USER")
-@EqualsAndHashCode(of = {"id"})
+@EqualsAndHashCode(of = {"id"}, callSuper = false)
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class User {
+public class User extends AbstractAuditable<String> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,12 +39,4 @@ public class User {
 
     @OneToMany(mappedBy = "author")
     private Set<Comment> comments;
-
-    @NotNull
-    @Column(name = "create_at")
-    private Timestamp createAt;
-
-    @NotNull
-    @Column(name = "update_at")
-    private LocalDateTime updateAt;
 }

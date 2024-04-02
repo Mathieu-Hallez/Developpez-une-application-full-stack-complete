@@ -2,7 +2,10 @@ package com.orion.mdd.models;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
-import lombok.Data;
+import lombok.*;
+import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
@@ -10,8 +13,13 @@ import java.util.Set;
 
 @Entity
 @Data
+@EqualsAndHashCode(of = {"id"}, callSuper = false)
 @Table(name = "POST")
-public class Post {
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
+public class Post extends AbstractAuditable<String> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @NotNull
@@ -32,12 +40,4 @@ public class Post {
 
     @OneToMany(mappedBy = "post")
     private Set<Comment> comments;
-
-    @NotNull
-    @Column(name = "create_at")
-    private Timestamp createAt;
-
-    @NotNull
-    @Column(name = "update_at")
-    private LocalDateTime updateAt;
 }
