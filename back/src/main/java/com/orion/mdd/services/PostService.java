@@ -17,4 +17,8 @@ public class PostService {
     public Post getPost(final Integer id) {
         return this.postRepository.findById(id).orElse(null);
     }
+
+    public void savePost(final Post post) {
+        this.postRepository.save(post);
+    }
 }

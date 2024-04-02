@@ -1,21 +1,33 @@
 package com.orion.mdd.controllers;
 
-import com.orion.mdd.dtos.CommentDto;
+import com.orion.mdd.dtos.api.ApiResponse;
+import com.orion.mdd.dtos.comment.CommentDto;
+import com.orion.mdd.dtos.post.CreatePostDto;
 import com.orion.mdd.mappers.AbstractCommentMapper;
 import com.orion.mdd.mappers.AbstractPostMapper;
 import com.orion.mdd.models.Comment;
 import com.orion.mdd.models.Post;
-import com.orion.mdd.dtos.PostDto;
+import com.orion.mdd.dtos.post.PostDto;
+import com.orion.mdd.models.Topic;
+import com.orion.mdd.models.User;
 import com.orion.mdd.services.CommentService;
 import com.orion.mdd.services.PostService;
+import com.orion.mdd.services.TopicService;
+import com.orion.mdd.services.UserService;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.*;
 
+import java.sql.Timestamp;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 
 @RestController
@@ -23,11 +35,19 @@ import java.util.List;
 @Tag(name = "Post", description = "The Post API. Contains all the operations that can be performed on a post.")
 public class PostController {
 
+    Logger logger = LoggerFactory.getLogger(PostController.class);
+
     @Autowired
     private PostService postService;
 
     @Autowired
     private CommentService commentService;
+
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private TopicService topicService;
 
     @Autowired
     private AbstractPostMapper postMapper;
@@ -49,5 +69,38 @@ public class PostController {
         List<Comment> comments = List.copyOf(this.commentService.getAllByPostId(id));
 
         return ResponseEntity.ok(commentMapper.toDtos(comments));
+    }
+
+    @PostMapping("/")
+    public ResponseEntity<ApiResponse> createAPost(Authentication authentication, @RequestBody final CreatePostDto createPostDto ) {
+        try {
+            System.out.println("Authentication name: " + authentication.getName());
+            User user = this.userService.getUser(authentication.getName());
+            if(user == null) {
+                return new ResponseEntity<>(new ApiResponse("Error: Unknown user."), HttpStatus.UNAUTHORIZED);
+            }
+            Topic topic = this.topicService.getTopic(Integer.valueOf(createPostDto.getTopic_id()));
+            if(topic == null) {
+                return new ResponseEntity<>(new ApiResponse("Error: Unknown topic."), HttpStatus.NOT_FOUND);
+            }
+
+            Post post = Post.builder()
+                    .title(createPostDto.getTitle())
+                    .content(createPostDto.getContent())
+                    .author(user)
+                    .topic(topic)
+                    .comments(new HashSet<>())
+                    .build();
+
+            this.postService.savePost(post);
+
+        } catch (Exception ex) {
+            logger.debug(Arrays.toString(ex.getStackTrace()));
+            logger.error(ex.getMessage());
+            System.out.println(ex.getMessage());
+            System.out.println(Arrays.toString(ex.getStackTrace()));
+            return ResponseEntity.internalServerError().body(new ApiResponse("Error: Internal server error."));
+        }
+        return ResponseEntity.ok(new ApiResponse("Post successfully created."));
     }
 }

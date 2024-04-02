@@ -1,10 +1,10 @@
 package com.orion.mdd.controllers;
 
-import com.orion.mdd.payloads.authentification.RegisterRequestDto;
+import com.orion.mdd.dtos.authentification.RegisterRequestDto;
 import com.orion.mdd.models.User;
-import com.orion.mdd.payloads.api.ApiResponse;
-import com.orion.mdd.payloads.authentification.LoginRequestDto;
-import com.orion.mdd.payloads.authentification.TokenDto;
+import com.orion.mdd.dtos.api.ApiResponse;
+import com.orion.mdd.dtos.authentification.LoginRequestDto;
+import com.orion.mdd.dtos.authentification.TokenDto;
 import com.orion.mdd.services.UserService;
 import com.orion.mdd.services.configurations.JWTService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirements;

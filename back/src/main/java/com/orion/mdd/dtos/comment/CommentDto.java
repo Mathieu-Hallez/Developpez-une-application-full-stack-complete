@@ -1,5 +1,6 @@
-package com.orion.mdd.dtos;
+package com.orion.mdd.dtos.comment;
 
+import com.orion.mdd.dtos.user.AuthorDto;
 import lombok.Data;
 
 @Data

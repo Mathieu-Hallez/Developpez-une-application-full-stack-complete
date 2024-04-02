@@ -36,8 +36,6 @@ public class UserService {
                 .email(email)
                 .username(username)
                 .password(passwordEncoder.encode(password))
-                .createAt(Timestamp.from(Instant.now()))
-                .updateAt(LocalDateTime.now())
                 .posts(new HashSet<>())
                 .comments(new HashSet<>())
                 .build();
