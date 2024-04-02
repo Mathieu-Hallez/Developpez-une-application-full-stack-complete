@@ -31,6 +31,7 @@ public class UserService {
     }
 
     public void createUser(final String email, final String username, final String password) {
+        // TODO Vérifier les critères de la validations mots de passe
         User user = User.builder()
                 .email(email)
                 .username(username)
