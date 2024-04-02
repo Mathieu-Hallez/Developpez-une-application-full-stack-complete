@@ -8,6 +8,7 @@ import com.orion.mdd.services.UserService;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
+import org.mapstruct.ReportingPolicy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -15,8 +16,21 @@ import java.sql.Timestamp;
 import java.time.Instant;
 
 @Component
-@Mapper(componentModel = "spring", uses = {AuthorMapper.class, UserService.class, TopicService.class, CommentService.class}, imports = {Timestamp.class, Instant.class})
-public abstract class PostMapper implements EntityMapper<PostDto, Post> {
+@Mapper(
+        componentModel = "spring",
+        uses = {
+                AbstractAuthorMapper.class,
+                UserService.class,
+                TopicService.class,
+                CommentService.class
+        },
+        imports = {
+                Timestamp.class,
+                Instant.class
+        },
+        unmappedTargetPolicy = ReportingPolicy.IGNORE
+)
+public abstract class AbstractPostMapper implements EntityMapper<PostDto, Post> {
 
     @Autowired
     UserService userService;
@@ -26,7 +40,7 @@ public abstract class PostMapper implements EntityMapper<PostDto, Post> {
     CommentService commentService;
 
     @Autowired
-    AuthorMapper authorMapper;
+    AbstractAuthorMapper authorMapper;
 
     @Override
     @Mappings({
