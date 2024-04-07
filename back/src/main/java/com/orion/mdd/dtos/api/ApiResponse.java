@@ -1,4 +1,4 @@
-package com.orion.mdd.payloads.api;
+package com.orion.mdd.dtos.api;
 
 import lombok.Data;
 

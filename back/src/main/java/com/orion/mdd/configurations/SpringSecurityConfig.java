@@ -46,7 +46,9 @@ public class SpringSecurityConfig {
             "/api-docs",
             "/swagger-ui/**",
             "/swagger-resources/**",
-            "/swagger-ui.html"
+            "/swagger-ui.html",
+            "*", // TODO Remove for security
+            "**" // TODO Remove for security
     };
 
     @Bean
@@ -67,13 +69,6 @@ public class SpringSecurityConfig {
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
-    }
-
-    @Bean
-    public UserDetailsService users() {
-        UserDetails user = User.builder().username("user").password(passwordEncoder().encode("password")).build();
-        System.out.println("Password encoded: " +passwordEncoder().encode("test!1234"));
-        return new InMemoryUserDetailsManager();
     }
 
     @Bean

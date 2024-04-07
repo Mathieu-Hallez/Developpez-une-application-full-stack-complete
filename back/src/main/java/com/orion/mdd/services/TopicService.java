@@ -12,6 +12,10 @@ public class TopicService {
     @Autowired
     private TopicRepository topicRepository;
 
+    public Topic getTopic(final Integer id) {
+        return this.topicRepository.findById(id).orElse(null);
+    }
+
     public Topic getByPostId(final Integer postId) {
         return this.topicRepository.findByPostsId(postId).orElse(null);
     }

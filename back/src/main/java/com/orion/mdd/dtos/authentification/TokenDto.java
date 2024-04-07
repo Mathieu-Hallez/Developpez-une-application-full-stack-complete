@@ -1,4 +1,4 @@
-package com.orion.mdd.payloads.authentification;
+package com.orion.mdd.dtos.authentification;
 
 import lombok.Data;
 

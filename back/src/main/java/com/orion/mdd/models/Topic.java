@@ -3,6 +3,7 @@ package com.orion.mdd.models;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
@@ -10,8 +11,9 @@ import java.util.Set;
 
 @Entity
 @Data
+@EqualsAndHashCode(of = {"id"}, callSuper = false)
 @Table(name = "TOPIC")
-public class Topic {
+public class Topic extends AbstractAuditable<String> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,12 +27,4 @@ public class Topic {
 
     @OneToMany(mappedBy = "topic")
     private Set<Post> posts;
-
-    @NotNull
-    @Column(name = "create_at")
-    private Timestamp createAt;
-
-    @NotNull
-    @Column(name = "update_at")
-    private LocalDateTime updateAt;
 }
