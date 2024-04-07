@@ -16,4 +16,8 @@ public class CommentService {
     public Set<Comment> getAllByPostId(final Integer postId) {
         return Set.copyOf(this.commentRepository.findAllByPostId(postId));
     }
+
+    public void save(final Comment comment) {
+        this.commentRepository.save(comment);
+    }
 }

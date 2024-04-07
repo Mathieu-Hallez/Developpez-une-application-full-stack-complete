@@ -2,8 +2,7 @@ package com.orion.mdd.models;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
@@ -12,6 +11,10 @@ import java.time.LocalDateTime;
 @Data
 @EqualsAndHashCode(of = {"id"}, callSuper = false)
 @Table(name="COMMENT")
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
 public class Comment extends AbstractAuditable<String> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

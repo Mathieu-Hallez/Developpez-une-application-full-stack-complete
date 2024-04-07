@@ -2,6 +2,7 @@ package com.orion.mdd.controllers;
 
 import com.orion.mdd.dtos.api.ApiResponse;
 import com.orion.mdd.dtos.comment.CommentDto;
+import com.orion.mdd.dtos.comment.CommentPostDto;
 import com.orion.mdd.dtos.post.CreatePostDto;
 import com.orion.mdd.mappers.AbstractCommentMapper;
 import com.orion.mdd.mappers.AbstractPostMapper;
@@ -102,5 +103,28 @@ public class PostController {
             return ResponseEntity.internalServerError().body(new ApiResponse("Error: Internal server error."));
         }
         return ResponseEntity.ok(new ApiResponse("Post successfully created."));
+    }
+
+    @PostMapping("/{id}/comment")
+    public ResponseEntity<ApiResponse> commentAPost(Authentication authentication, @PathVariable("id") final Integer id, @RequestBody final CommentPostDto commentPostDto) {
+        Post post = this.postService.getPost(id);
+        if(post == null) {
+            return new ResponseEntity<>(new ApiResponse("Error: Post not found."), HttpStatus.NOT_FOUND);
+        }
+
+        User user = this.userService.getUser(authentication.getName());
+        if(user == null) {
+            return new ResponseEntity<>(new ApiResponse("Error: User not found."), HttpStatus.UNAUTHORIZED);
+        }
+
+        Comment comment = Comment.builder()
+                .comment(commentPostDto.getContent())
+                .post(post)
+                .author(user)
+                .build();
+
+        this.commentService.save(comment);
+
+        return ResponseEntity.ok().build();
     }
 }
