@@ -33,8 +33,8 @@ import java.util.HashSet;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/post")
-@Tag(name = "Post", description = "The Post API. Contains all the operations that can be performed on a post.")
+@RequestMapping("/api/posts")
+@Tag(name = "Posts", description = "The Posts API. Contains all the operations that can be performed on posts.")
 public class PostController {
 
     Logger logger = LoggerFactory.getLogger(PostController.class);
@@ -76,7 +76,7 @@ public class PostController {
         return ResponseEntity.ok(commentDtos);
     }
 
-    @PostMapping("/")
+    @PostMapping("/create")
     public ResponseEntity<ApiResponse> createAPost(Authentication authentication, @RequestBody final CreatePostDto createPostDto ) {
         try {
             System.out.println("Authentication name: " + authentication.getName());

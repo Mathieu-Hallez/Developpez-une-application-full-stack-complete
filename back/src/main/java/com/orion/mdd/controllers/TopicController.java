@@ -26,8 +26,8 @@ import java.util.Set;
 import java.util.concurrent.Flow;
 
 @RestController
-@RequestMapping("/api/topic/")
-@Tag(name = "Topic", description = "The Topic API. Contains all the operations that can be performed on a topic.")
+@RequestMapping("/api/topics/")
+@Tag(name = "Topics", description = "The Topics API. Contains all the operations that can be performed on topics.")
 public class TopicController {
 
     Logger logger = LoggerFactory.getLogger(TopicController.class);
