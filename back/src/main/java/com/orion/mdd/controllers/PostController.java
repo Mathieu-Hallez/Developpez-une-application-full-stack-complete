@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.*;
 import java.sql.Timestamp;
 import java.time.Instant;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
@@ -67,9 +68,12 @@ public class PostController {
 
     @GetMapping("/{id}/comments")
     public ResponseEntity<List<CommentDto>> getPostComments(@PathVariable("id") final Integer id) {
-        List<Comment> comments = List.copyOf(this.commentService.getAllByPostId(id));
+        List<CommentDto> commentDtos = new ArrayList<>();
+        Iterable<Comment> commentIterable = this.commentService.getAllByPostId(id);
 
-        return ResponseEntity.ok(commentMapper.toDtos(comments));
+        commentIterable.forEach(it -> commentDtos.add(commentMapper.toDto(it)));
+
+        return ResponseEntity.ok(commentDtos);
     }
 
     @PostMapping("/")
