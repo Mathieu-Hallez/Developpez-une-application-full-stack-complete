@@ -45,9 +45,6 @@ public abstract class AbstractPostMapper implements EntityMapper<PostDto, Post> 
     @Autowired
     CommentService commentService;
 
-    @Autowired
-    AbstractAuthorMapper authorMapper;
-
     @Override
     @Mappings({
             @Mapping(target = "author", expression = "java(postDto.getAuthor().getId() != null ? this.userService.getUser(postDto.getAuthor().getId()) : null)"),
