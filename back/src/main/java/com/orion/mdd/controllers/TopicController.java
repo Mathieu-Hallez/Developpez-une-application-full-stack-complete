@@ -1,35 +1,43 @@
 package com.orion.mdd.controllers;
 
+import com.orion.mdd.dtos.api.ApiResponse;
 import com.orion.mdd.dtos.post.PostDto;
 import com.orion.mdd.dtos.topic.TopicDto;
 import com.orion.mdd.mappers.AbstractPostMapper;
 import com.orion.mdd.mappers.AbstractTopicMapper;
 import com.orion.mdd.models.Post;
 import com.orion.mdd.models.Topic;
+import com.orion.mdd.models.User;
 import com.orion.mdd.services.PostService;
 import com.orion.mdd.services.TopicService;
+import com.orion.mdd.services.UserService;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.concurrent.Flow;
 
 @RestController
 @RequestMapping("/api/topic/")
 @Tag(name = "Topic", description = "The Topic API. Contains all the operations that can be performed on a topic.")
 public class TopicController {
 
+    Logger logger = LoggerFactory.getLogger(TopicController.class);
+
     @Autowired
     private TopicService topicService;
-
     @Autowired
     private PostService postService;
-
+    @Autowired
+    private UserService userService;
     @Autowired
     private AbstractTopicMapper topicMapper;
     @Autowired
@@ -53,5 +61,33 @@ public class TopicController {
         postIterable.forEach(it -> postDtos.add(this.postMapper.toDto(it)));
         
         return ResponseEntity.ok(postDtos);
+    }
+
+    @PutMapping("/{id}/subscribe")
+    public ResponseEntity<?> subscribe(Authentication authentication, @PathVariable("id") final Integer id) {
+        User user = this.userService.getUser(authentication.getName());
+        if(user == null) {
+            return new ResponseEntity<>(new ApiResponse("Error: unknown user."), HttpStatus.UNAUTHORIZED);
+        }
+        Topic topic = this.topicService.getTopic(id);
+        if(topic == null) {
+            return new ResponseEntity<>(new ApiResponse("Error: topic not found."), HttpStatus.NOT_FOUND);
+        }
+
+        Set<User> subscribers = topic.getSubscribers();
+        Set<Topic> subscribes = user.getSubscribes();
+        if(subscribers.contains(user) && subscribes.contains(topic)) {
+            return new ResponseEntity<>(new ApiResponse("Error: "+user.getUsername()+" already subscribe to "+topic.getTitle()+"."), HttpStatus.BAD_REQUEST);
+        } else if(subscribers.contains(user) ^ subscribes.contains(topic)) {
+            logger.error("Data consistency: user doesn't have topic in their subscribes or topic doesn't have user in their subscribers but the other has it saved.");
+            return new ResponseEntity<>(new ApiResponse("Error: Data consistency."), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        subscribers.add(user);
+        subscribes.add(topic);
+
+        this.topicService.update(topic);
+        this.userService.update(user);
+
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

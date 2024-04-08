@@ -39,4 +39,12 @@ public class User extends AbstractAuditable<String> {
 
     @OneToMany(mappedBy = "author")
     private Set<Comment> comments;
+
+    @ManyToMany
+    @JoinTable(
+            name = "subscribe",
+            joinColumns = @JoinColumn(name = "subscriber_id"),
+            inverseJoinColumns = @JoinColumn(name = "topic_id")
+    )
+    private Set<Topic> subscribes;
 }

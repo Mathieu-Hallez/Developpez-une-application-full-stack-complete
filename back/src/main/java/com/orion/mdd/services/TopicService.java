@@ -24,4 +24,8 @@ public class TopicService {
     public Iterable<Topic> getAll() {
         return this.topicRepository.findAll();
     }
+
+    public void update(Topic topic) {
+        this.topicRepository.save(topic);
+    }
 }
