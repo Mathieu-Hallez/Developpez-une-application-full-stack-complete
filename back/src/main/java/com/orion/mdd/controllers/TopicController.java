@@ -11,15 +11,15 @@ import com.orion.mdd.services.TopicService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Controller
+@RestController
 @RequestMapping("/api/topic/")
 @Tag(name = "Topic", description = "The Topic API. Contains all the operations that can be performed on a topic.")
 public class TopicController {
@@ -45,7 +45,7 @@ public class TopicController {
         return ResponseEntity.ok(topicDtos);
     }
 
-    @GetMapping("/${id}/posts")
+    @GetMapping("/{id}/posts")
     public ResponseEntity<List<PostDto>> getAllPostsTopic(@PathVariable("id") final Integer id) {
         List<PostDto> postDtos = new ArrayList<>();
         Iterable<Post> postIterable = this.postService.getAllPostsOfATopic(id);
