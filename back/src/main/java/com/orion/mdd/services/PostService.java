@@ -21,4 +21,8 @@ public class PostService {
     public void savePost(final Post post) {
         this.postRepository.save(post);
     }
+
+    public Iterable<Post> getAllPostsOfATopic(final Integer topicId) {
+        return this.postRepository.findAllByTopicId(topicId);
+    }
 }

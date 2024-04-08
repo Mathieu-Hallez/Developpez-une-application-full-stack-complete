@@ -5,8 +5,6 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
 import java.util.Set;
 
 @Entity
@@ -27,4 +25,7 @@ public class Topic extends AbstractAuditable<String> {
 
     @OneToMany(mappedBy = "topic")
     private Set<Post> posts;
+
+    @ManyToMany(mappedBy = "subscribes")
+    private Set<User> subscribers;
 }

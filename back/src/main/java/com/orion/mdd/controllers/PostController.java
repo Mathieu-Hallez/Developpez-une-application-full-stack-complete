@@ -24,16 +24,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.Timestamp;
-import java.time.Instant;
-import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/post")
-@Tag(name = "Post", description = "The Post API. Contains all the operations that can be performed on a post.")
+@RequestMapping("/api/posts")
+@Tag(name = "Posts", description = "The Posts API. Contains all the operations that can be performed on posts.")
 public class PostController {
 
     Logger logger = LoggerFactory.getLogger(PostController.class);
@@ -67,12 +65,15 @@ public class PostController {
 
     @GetMapping("/{id}/comments")
     public ResponseEntity<List<CommentDto>> getPostComments(@PathVariable("id") final Integer id) {
-        List<Comment> comments = List.copyOf(this.commentService.getAllByPostId(id));
+        List<CommentDto> commentDtos = new ArrayList<>();
+        Iterable<Comment> commentIterable = this.commentService.getAllByPostId(id);
 
-        return ResponseEntity.ok(commentMapper.toDtos(comments));
+        commentIterable.forEach(it -> commentDtos.add(commentMapper.toDto(it)));
+
+        return ResponseEntity.ok(commentDtos);
     }
 
-    @PostMapping("/")
+    @PostMapping("/create")
     public ResponseEntity<ApiResponse> createAPost(Authentication authentication, @RequestBody final CreatePostDto createPostDto ) {
         try {
             System.out.println("Authentication name: " + authentication.getName());

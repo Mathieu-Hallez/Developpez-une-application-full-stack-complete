@@ -5,8 +5,6 @@ import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import org.apache.commons.lang3.builder.ToStringExclude;
 
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
 import java.util.Set;
 
 @Entity
@@ -39,4 +37,12 @@ public class User extends AbstractAuditable<String> {
 
     @OneToMany(mappedBy = "author")
     private Set<Comment> comments;
+
+    @ManyToMany
+    @JoinTable(
+            name = "subscribe",
+            joinColumns = @JoinColumn(name = "subscriber_id"),
+            inverseJoinColumns = @JoinColumn(name = "topic_id")
+    )
+    private Set<Topic> subscribes;
 }
