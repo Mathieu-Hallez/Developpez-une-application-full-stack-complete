@@ -90,4 +90,32 @@ public class TopicController {
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    @PutMapping("/{id}/unsubscribe")
+    public ResponseEntity<?> unsubscribe(Authentication authentication, @PathVariable("id") final Integer id) {
+        User user = this.userService.getUser(authentication.getName());
+        if(user == null) {
+            return new ResponseEntity<>(new ApiResponse("Error: unknown user."), HttpStatus.UNAUTHORIZED);
+        }
+        Topic topic = this.topicService.getTopic(id);
+        if(topic == null) {
+            return new ResponseEntity<>(new ApiResponse("Error: topic not found."), HttpStatus.NOT_FOUND);
+        }
+
+        Set<User> subscribers = topic.getSubscribers();
+        Set<Topic> subscribes = user.getSubscribes();
+        if(!subscribers.contains(user) && !subscribes.contains(topic)) {
+            return new ResponseEntity<>(new ApiResponse("Error: "+user.getUsername()+" already unsubscribe to "+topic.getTitle()+"."), HttpStatus.BAD_REQUEST);
+        } else if(!subscribers.contains(user) ^ !subscribes.contains(topic)) {
+            logger.error("Data consistency: user doesn't have topic in their subscribes or topic doesn't have user in their subscribers but the other has it saved.");
+            return new ResponseEntity<>(new ApiResponse("Error: Data consistency."), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        subscribers.remove(user);
+        subscribes.remove(topic);
+
+        this.topicService.update(topic);
+        this.userService.update(user);
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }
