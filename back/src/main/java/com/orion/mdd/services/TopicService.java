@@ -5,6 +5,7 @@ import com.orion.mdd.repositories.TopicRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -18,5 +19,9 @@ public class TopicService {
 
     public Topic getByPostId(final Integer postId) {
         return this.topicRepository.findByPostsId(postId).orElse(null);
+    }
+
+    public Iterable<Topic> getAll() {
+        return this.topicRepository.findAll();
     }
 }
