@@ -1,5 +1,7 @@
 package com.orion.mdd.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
@@ -32,12 +34,15 @@ public class Post extends AbstractAuditable<String> {
 
     @ManyToOne
     @JoinColumn(name="topic_id", nullable = false)
+    @JsonBackReference
     private Topic topic;
 
     @ManyToOne
     @JoinColumn(name="author_id", nullable = false)
+    @JsonBackReference
     private User author;
 
     @OneToMany(mappedBy = "post")
+    @JsonManagedReference
     private Set<Comment> comments;
 }

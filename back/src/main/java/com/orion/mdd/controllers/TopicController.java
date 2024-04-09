@@ -2,9 +2,9 @@ package com.orion.mdd.controllers;
 
 import com.orion.mdd.dtos.api.ApiResponse;
 import com.orion.mdd.dtos.post.PostDto;
-import com.orion.mdd.dtos.topic.TopicDto;
+import com.orion.mdd.dtos.topic.TopicDetailsDto;
 import com.orion.mdd.mappers.AbstractPostMapper;
-import com.orion.mdd.mappers.AbstractTopicMapper;
+import com.orion.mdd.mappers.AbstractTopicDetailMapper;
 import com.orion.mdd.models.Post;
 import com.orion.mdd.models.Topic;
 import com.orion.mdd.models.User;
@@ -38,18 +38,18 @@ public class TopicController {
     @Autowired
     private UserService userService;
     @Autowired
-    private AbstractTopicMapper topicMapper;
+    private AbstractTopicDetailMapper topicMapper;
     @Autowired
     private AbstractPostMapper postMapper;
 
     @GetMapping("/")
-    public ResponseEntity<List<TopicDto>> getAllTopics() {
-        List<TopicDto> topicDtos = new ArrayList<>();
+    public ResponseEntity<List<TopicDetailsDto>> getAllTopics() {
+        List<TopicDetailsDto> topicDetailsDtos = new ArrayList<>();
         Iterable<Topic> topicsIterable = this.topicService.getAll();
 
-        topicsIterable.forEach(it -> topicDtos.add(topicMapper.toDto(it)));
+        topicsIterable.forEach(it -> topicDetailsDtos.add(topicMapper.toDto(it)));
 
-        return ResponseEntity.ok(topicDtos);
+        return ResponseEntity.ok(topicDetailsDtos);
     }
 
     @GetMapping("/{id}/posts")

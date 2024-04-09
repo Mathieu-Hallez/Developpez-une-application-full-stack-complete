@@ -1,5 +1,7 @@
 package com.orion.mdd.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
@@ -24,8 +26,10 @@ public class Topic extends AbstractAuditable<String> {
     private String description;
 
     @OneToMany(mappedBy = "topic")
+    @JsonManagedReference
     private Set<Post> posts;
 
     @ManyToMany(mappedBy = "subscribes")
+    @JsonIgnore
     private Set<User> subscribers;
 }

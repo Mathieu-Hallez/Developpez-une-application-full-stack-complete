@@ -1,5 +1,6 @@
 package com.orion.mdd.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
@@ -24,9 +25,11 @@ public class Comment extends AbstractAuditable<String> {
 
     @ManyToOne
     @JoinColumn(name="post_id")
+    @JsonBackReference
     private Post post;
 
     @ManyToOne
     @JoinColumn(name="author_id")
+    @JsonBackReference
     private User author;
 }

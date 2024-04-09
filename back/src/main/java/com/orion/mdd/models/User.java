@@ -1,5 +1,8 @@
 package com.orion.mdd.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
@@ -33,9 +36,11 @@ public class User extends AbstractAuditable<String> {
     private String username;
 
     @OneToMany(mappedBy = "author")
+    @JsonManagedReference
     private Set<Post> posts;
 
     @OneToMany(mappedBy = "author")
+    @JsonManagedReference
     private Set<Comment> comments;
 
     @ManyToMany
@@ -44,5 +49,6 @@ public class User extends AbstractAuditable<String> {
             joinColumns = @JoinColumn(name = "subscriber_id"),
             inverseJoinColumns = @JoinColumn(name = "topic_id")
     )
+    @JsonIgnore
     private Set<Topic> subscribes;
 }

@@ -9,6 +9,9 @@ import org.springframework.stereotype.Component;
 @Component
 @Mapper(
         componentModel = "spring",
-        unmappedTargetPolicy = ReportingPolicy.IGNORE
+        unmappedTargetPolicy = ReportingPolicy.IGNORE,
+        uses = {
+            AbstractPostMapper.class
+    }
 )
 public abstract class AbstractTopicMapper implements EntityMapper<TopicDto, Topic>{}
