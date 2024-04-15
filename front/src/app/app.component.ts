@@ -9,5 +9,7 @@ import { Router } from '@angular/router';
 export class AppComponent {
   title = 'front';
 
-  constructor(public router : Router) {}
+  constructor(public router : Router) {
+    // this.router.events.subscribe(() => console.log('Route:', router.url));
+  }
 }
