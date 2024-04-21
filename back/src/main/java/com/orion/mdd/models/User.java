@@ -1,21 +1,29 @@
 package com.orion.mdd.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
-import lombok.Data;
+import lombok.*;
+import org.apache.commons.lang3.builder.ToStringExclude;
 
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
 import java.util.Set;
 
 @Entity
 @Data
 @Table(name = "USER")
-public class User {
+@EqualsAndHashCode(of = {"id"}, callSuper = false)
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
+public class User extends AbstractAuditable<String> {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @NotNull
+    @ToStringExclude
     private Integer id;
 
     @NotNull
@@ -28,16 +36,19 @@ public class User {
     private String username;
 
     @OneToMany(mappedBy = "author")
+    @JsonManagedReference
     private Set<Post> posts;
 
     @OneToMany(mappedBy = "author")
+    @JsonManagedReference
     private Set<Comment> comments;
 
-    @NotNull
-    @Column(name = "create_at")
-    private Timestamp createAt;
-
-    @NotNull
-    @Column(name = "update_at")
-    private LocalDateTime updateAt;
+    @ManyToMany
+    @JoinTable(
+            name = "subscribe",
+            joinColumns = @JoinColumn(name = "subscriber_id"),
+            inverseJoinColumns = @JoinColumn(name = "topic_id")
+    )
+    @JsonIgnore
+    private Set<Topic> subscribes;
 }

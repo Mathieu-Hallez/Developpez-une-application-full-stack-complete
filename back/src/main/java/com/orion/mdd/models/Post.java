@@ -1,8 +1,13 @@
 package com.orion.mdd.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
-import lombok.Data;
+import lombok.*;
+import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
@@ -10,10 +15,15 @@ import java.util.Set;
 
 @Entity
 @Data
+@EqualsAndHashCode(of = {"id"}, callSuper = false)
 @Table(name = "POST")
-public class Post {
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
+public class Post extends AbstractAuditable<String> {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @NotNull
     private Integer id;
 
@@ -24,20 +34,15 @@ public class Post {
 
     @ManyToOne
     @JoinColumn(name="topic_id", nullable = false)
+    @JsonBackReference
     private Topic topic;
 
     @ManyToOne
     @JoinColumn(name="author_id", nullable = false)
+    @JsonBackReference
     private User author;
 
     @OneToMany(mappedBy = "post")
+    @JsonManagedReference
     private Set<Comment> comments;
-
-    @NotNull
-    @Column(name = "create_at")
-    private Timestamp createAt;
-
-    @NotNull
-    @Column(name = "update_at")
-    private LocalDateTime updateAt;
 }
