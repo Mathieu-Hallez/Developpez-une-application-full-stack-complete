@@ -2,6 +2,7 @@ package com.orion.mdd.services;
 
 import com.orion.mdd.models.User;
 import com.orion.mdd.repositories.UserRepository;
+import com.orion.mdd.security.ValidPassword;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -27,8 +28,10 @@ public class UserService {
         return this.userRepository.findByEmail(email).orElse(null);
     }
 
-    public void createUser(final String email, final String username, final String password) {
+    public void createUser(final String email, final String username, String password) {
         // TODO Vérifier les critères de la validations mots de passe
+
+
         User user = User.builder()
                 .email(email)
                 .username(username)
