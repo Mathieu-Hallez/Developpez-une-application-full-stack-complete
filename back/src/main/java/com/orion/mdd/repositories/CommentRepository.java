@@ -9,5 +9,5 @@ import java.util.Optional;
 
 @Repository
 public interface CommentRepository extends CrudRepository<Comment, Integer> {
-    List<Comment> findAllByPostId(final Integer id);
+    Iterable<Comment> findAllByPostId(final Integer id);
 }

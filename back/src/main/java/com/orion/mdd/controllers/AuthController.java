@@ -9,6 +9,7 @@ import com.orion.mdd.services.UserService;
 import com.orion.mdd.services.configurations.JWTService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirements;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,10 +20,15 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -60,7 +66,15 @@ public class AuthController {
 
     @PostMapping("/register")
     @SecurityRequirements()
-    public ResponseEntity<ApiResponse> register(@RequestBody RegisterRequestDto registerRequestDto) {
+    public ResponseEntity<?> register(@Valid @RequestBody RegisterRequestDto registerRequestDto, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            List<String> errorMessages = bindingResult.getAllErrors().stream()
+                    .map(ObjectError::getDefaultMessage)
+                    .collect(Collectors.toList());
+
+            return ResponseEntity.badRequest().body(String.join(" ", errorMessages));
+        }
+
         if(this.userService.existsByEmail(registerRequestDto.getEmail())) {
             return new ResponseEntity<>(new ApiResponse("Error: Email address already used."), HttpStatus.BAD_REQUEST);
         }

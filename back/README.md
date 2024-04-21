@@ -1,0 +1,1 @@
+How to generate custom JWT Secret key with Node Js : `node -e "console.log(require('crypto').randomBytes(256).toString('base64'));"`

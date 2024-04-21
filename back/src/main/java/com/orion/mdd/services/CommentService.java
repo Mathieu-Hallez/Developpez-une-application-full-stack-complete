@@ -13,7 +13,11 @@ public class CommentService {
     @Autowired
     private CommentRepository commentRepository;
 
-    public Set<Comment> getAllByPostId(final Integer postId) {
-        return Set.copyOf(this.commentRepository.findAllByPostId(postId));
+    public Iterable<Comment> getAllByPostId(final Integer postId) {
+        return this.commentRepository.findAllByPostId(postId);
+    }
+
+    public void save(final Comment comment) {
+        this.commentRepository.save(comment);
     }
 }

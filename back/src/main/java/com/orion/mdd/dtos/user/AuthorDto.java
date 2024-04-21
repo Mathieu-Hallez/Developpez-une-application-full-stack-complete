@@ -1,4 +1,4 @@
-package com.orion.mdd.dtos;
+package com.orion.mdd.dtos.user;
 
 import lombok.Data;
 
