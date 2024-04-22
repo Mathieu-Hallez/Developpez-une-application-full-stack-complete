@@ -1,0 +1,18 @@
+@use './palettes.scss' as palettes;
+@use '@angular/material' as mat;
+
+@include mat.core();
+
+$my-app-primary: mat.define-palette(palettes.$primary-palette, 400, 400, 800);
+$my-app-accent: mat.define-palette(palettes.$secondary-palette, 300, 300, 600);
+$my-app-warn: mat.define-palette(palettes.$warn-palette, 700, 700, 900);
+
+$my-app-theme: mat.define-light-theme((
+    color: (
+        primary: $my-app-primary,
+        accent: $my-app-accent,
+        warn: $my-app-warn
+    )
+));
+
+@include mat.all-component-themes($my-app-theme);
