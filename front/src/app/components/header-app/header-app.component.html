@@ -1,0 +1,30 @@
+<mat-sidenav-container class="example-sidenav-container">
+      <mat-sidenav #snav [mode]="'over'" [position]="'end'">
+        <mat-nav-list>
+            <a routerLink="posts">Articles</a>
+            <a routerLink="topics">Thèmes</a>
+        </mat-nav-list>
+        <button mat-fab color="accent" aria-label="User profile icon" routerLink="profile">
+            <mat-icon svgIcon="user" aria-hidden="true"></mat-icon>
+        </button>
+      </mat-sidenav>
+
+      <mat-sidenav-content>
+        <mat-toolbar>
+            <img src="/assets/logo_p6.png" alt="logo" routerLink="/"/>
+            <div *ngIf="!isSmall" class="menu">
+                <a routerLink="posts">Articles</a>
+                <a routerLink="topics">Thèmes</a>
+                <button mat-fab color="accent" aria-label="User profile icon" routerLink="profile">
+                    <mat-icon svgIcon="user" aria-hidden="true"></mat-icon>
+                </button>
+            </div>
+            <button *ngIf="isSmall" mat-icon-button color="grey" aria-label="Side Nav button" (click)="snav.toggle()">
+                <mat-icon aria-hidden="true">density_medium</mat-icon>
+            </button>
+        </mat-toolbar>
+        <div class="content">
+            <ng-content></ng-content>
+        </div>
+      </mat-sidenav-content>
+</mat-sidenav-container>
