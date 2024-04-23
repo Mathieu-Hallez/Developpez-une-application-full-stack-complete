@@ -13,9 +13,11 @@ import { MatIconModule } from '@angular/material/icon';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatListModule} from '@angular/material/list';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MddFormInputComponent } from './components/mdd-form-input/mdd-form-input.component';
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, SignUpComponent, SignInComponent, HeaderAppComponent],
+  declarations: [AppComponent, HomeComponent, SignUpComponent, SignInComponent, HeaderAppComponent, MddFormInputComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -25,7 +27,8 @@ import {MatListModule} from '@angular/material/list';
     HttpClientModule,
     MatToolbarModule,
     MatSidenavModule,
-    MatListModule
+    MatListModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent],
