@@ -44,13 +44,37 @@ button {
 mat-nav-list {
     display: flex;
     flex-flow: column nowrap;
+    align-items: flex-end;
+    gap: 2rem;
 }
 
-.example-sidenav-container {
+.sidenav-container {
     position: absolute;
     top: 0;
     bottom: 0;
     left: 0;
     right: 0;
     background: #ffff;
+    mat-sidenav {
+        width: 184px;
+    }
+}
+
+.sidenav-section {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: flex-end;
+    justify-content: space-between;
+    height: 100%;
+    a {
+        font-size: 20px;
+    }
+    mat-nav-list {
+        margin-top: 7rem;
+        margin-right: 2rem;
+    }
+    button {
+        margin-bottom: 2rem;
+        margin-right: 2rem;
+    }
 }
