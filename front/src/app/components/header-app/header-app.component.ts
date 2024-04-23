@@ -24,9 +24,4 @@ export class HeaderAppComponent implements OnInit {
         this.isSmall = result.matches;
     });
   }
-
-  openSideNav() : void {
-    
-  }
-
 }
