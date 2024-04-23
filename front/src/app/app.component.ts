@@ -20,6 +20,10 @@ export class AppComponent {
     this.matIconRegister.addSvgIcon(
       'user',
       this.domSaniziter.bypassSecurityTrustResourceUrl('../assets/icons/user.svg')
-    )
+    );
+    this.matIconRegister.addSvgIcon(
+      'arrow_left',
+      this.domSaniziter.bypassSecurityTrustResourceUrl('../assets/icons/arrow-left.svg')
+    );
   }
 }
