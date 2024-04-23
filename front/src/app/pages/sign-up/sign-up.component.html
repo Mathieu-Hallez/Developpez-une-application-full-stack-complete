@@ -1,1 +1,22 @@
-<p>sign-up works!</p>
+<div class="container">
+    <div class="return-arrow">
+        <button mat-icon-button aria-label="Go back" (click)="goBack()">
+            <mat-icon svgIcon="arrow_left" aria-hidden="true"></mat-icon>
+        </button>
+    </div>
+    <div class="form-container">
+        <img *ngIf="isSmall" class="logo" src="/assets/logo_p6.png" alt="logo"/>
+        <h1>Inscription</h1>
+        <form [formGroup]="signForm">
+            <app-mdd-form-input label="Nom d'utilisateur" myformControlName="username" [myFormGroup]="signForm"></app-mdd-form-input>
+            
+            <app-mdd-form-input label="Adresse e-mail" myformControlName="email" [myFormGroup]="signForm"></app-mdd-form-input>
+
+            <app-mdd-form-input label="Mot de passe" myformControlName="password" type="password" [myFormGroup]="signForm"></app-mdd-form-input>
+        
+            <div class="action-button">
+                <button mat-flat-button color="primary" type="submit" (click)="onSubmitForm()">S'inscrire</button>
+            </div>
+        </form>
+    </div>
+</div>
