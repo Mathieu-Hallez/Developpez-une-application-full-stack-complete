@@ -66,13 +66,13 @@ public class AuthController {
 
     @PostMapping("/register")
     @SecurityRequirements()
-    public ResponseEntity<?> register(@Valid @RequestBody RegisterRequestDto registerRequestDto, BindingResult bindingResult) {
+    public ResponseEntity<ApiResponse> register(@Valid @RequestBody RegisterRequestDto registerRequestDto, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             List<String> errorMessages = bindingResult.getAllErrors().stream()
                     .map(ObjectError::getDefaultMessage)
                     .collect(Collectors.toList());
 
-            return ResponseEntity.badRequest().body(String.join(" ", errorMessages));
+            return ResponseEntity.badRequest().body(new ApiResponse("Error: " + String.join("\n", errorMessages)));
         }
 
         if(this.userService.existsByEmail(registerRequestDto.getEmail())) {
