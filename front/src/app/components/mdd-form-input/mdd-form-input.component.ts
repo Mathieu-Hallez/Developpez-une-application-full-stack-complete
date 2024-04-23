@@ -6,7 +6,7 @@ import { FormGroup } from '@angular/forms';
   templateUrl: './mdd-form-input.component.html',
   styleUrls: ['./mdd-form-input.component.scss']
 })
-export class MddFormInputComponent implements OnInit {
+export class MddFormInputComponent {
 
   @Input()
   label! : string;
@@ -19,10 +19,5 @@ export class MddFormInputComponent implements OnInit {
 
   @Input()
   myFormGroup! : FormGroup;
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
 
 }
