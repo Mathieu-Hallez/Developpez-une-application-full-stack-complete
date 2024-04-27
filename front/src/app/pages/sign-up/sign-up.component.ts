@@ -4,7 +4,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { RegisterRequest } from 'src/app/interfaces/RegisterRequest';
+import { RegisterRequest } from 'src/app/interfaces/requests/RegisterRequest';
 import { AuthenticationService } from 'src/app/services/api/authentification/authentication.service';
 
 @Component({
