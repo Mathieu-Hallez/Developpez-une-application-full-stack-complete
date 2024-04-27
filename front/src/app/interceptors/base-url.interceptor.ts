@@ -15,7 +15,8 @@ export class BaseUrlInterceptor implements HttpInterceptor {
   ) {}
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-    const apiRequest = request.clone({url: `${this.baseUrl}${request.url}`});
-    return next.handle(apiRequest);
+    if(!request.url.includes('/assets/icons/'))
+      return next.handle(request.clone({url: `${this.baseUrl}${request.url}`}));
+    return next.handle(request.clone());
   }
 }
