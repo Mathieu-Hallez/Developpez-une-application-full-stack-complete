@@ -26,6 +26,7 @@ import java.util.Set;
 
 @RestController
 @RequestMapping("/api/topics/")
+@CrossOrigin(origins = "http://localhost:4200")
 @Tag(name = "Topics", description = "The Topics API. Contains all the operations that can be performed on topics.")
 public class TopicController {
 
