@@ -7,6 +7,9 @@ import com.orion.mdd.dtos.authentification.LoginRequestDto;
 import com.orion.mdd.dtos.authentification.TokenDto;
 import com.orion.mdd.services.UserService;
 import com.orion.mdd.services.configurations.JWTService;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.security.SecurityRequirements;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -14,6 +17,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -43,7 +47,23 @@ public class AuthController {
 
     @PostMapping("/login")
     @SecurityRequirements()
-    public ResponseEntity<?> getToken(@RequestBody LoginRequestDto loginRequestDto) {
+    @ApiResponses(value = {
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200",
+                    description = "Connect to the API calls.",
+                    content = {@Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = TokenDto.class)
+                    )}
+            ),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "401",
+                    description = "Unauthorized",
+                    content = {@Content(
+                        mediaType = MediaType.APPLICATION_JSON_VALUE,
+                        schema = @Schema(implementation = ApiResponse.class)
+                    )}
+            )
+    })
+    public ResponseEntity<Object> getToken(@RequestBody LoginRequestDto loginRequestDto) {
         User user = this.userService.getUser(loginRequestDto.getEmail());
 
         if(user == null) {
