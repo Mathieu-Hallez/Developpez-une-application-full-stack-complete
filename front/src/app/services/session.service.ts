@@ -6,8 +6,15 @@ import { BehaviorSubject, Observable } from 'rxjs';
 })
 export class SessionService {
 
-  public isLogged : boolean = false;
-  public token : string= '';
+  private _isLogged : boolean = false;
+  public get isLogged() : boolean {
+    return this._isLogged
+  }
+  
+  private _token : string= '';
+  public get token() : string {
+    return this._token
+  }
 
   private $isLoggedSubject : BehaviorSubject<boolean> = new BehaviorSubject<boolean>(this.isLogged);
 
@@ -17,15 +24,15 @@ export class SessionService {
     return this.$isLoggedSubject.asObservable();
   }
 
-  public login(_token : string) {
-    this.isLogged = true;
-    this.token = _token;
+  public login(token : string) {
+    this._isLogged = true;
+    this._token = token;
     this.next();
   }
 
   public logout() {
-    this.isLogged = false;
-    this.token = '';
+    this._isLogged = false;
+    this._token = '';
     this.next();
   }
 
