@@ -5,7 +5,7 @@ import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/fo
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { RegisterRequest } from 'src/app/interfaces/RegisterRequest';
-import { AuthenticationService } from 'src/app/services/authentication.service';
+import { AuthenticationService } from 'src/app/services/api/authentification/authentication.service';
 
 @Component({
   selector: 'app-sign-up',
