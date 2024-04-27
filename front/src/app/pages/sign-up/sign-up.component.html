@@ -43,6 +43,7 @@
             </div>
         
             <div class="action-button">
+                <span *ngIf="errorMessage" class="alert-danger">{{ errorMessage }}</span>
                 <button mat-flat-button color="primary" type="submit" (click)="onSubmitForm()" [disabled]="signForm.invalid">S'inscrire</button>
             </div>
         </form>

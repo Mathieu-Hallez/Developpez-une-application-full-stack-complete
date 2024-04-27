@@ -83,7 +83,7 @@ export class SignUpComponent implements OnInit, OnDestroy {
     console.log(this.signForm.errors);
     this.register$ = this.authService.register(registerRequest).subscribe({
       next: _ => this.router.navigateByUrl('/sign-in'),
-      error: error => console.log(JSON.stringify(error))
+      error: error => this.errorMessage = error.error.message
     })
   }
 
