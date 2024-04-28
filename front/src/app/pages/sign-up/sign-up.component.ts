@@ -66,8 +66,6 @@ export class SignUpComponent implements OnDestroy {
 
   onSubmitForm(): void {
     const registerRequest = this.signForm.value as RegisterRequest;
-    console.log(registerRequest);
-    console.log(this.signForm.errors);
     this.register$ = this.authService.register(registerRequest).subscribe({
       next: _ => this.router.navigateByUrl('/sign-in'),
       error: error => this.errorMessage = error.error.message

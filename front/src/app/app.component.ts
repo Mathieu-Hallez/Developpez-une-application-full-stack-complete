@@ -16,7 +16,6 @@ export class AppComponent {
     private matIconRegister : MatIconRegistry,
     private domSaniziter : DomSanitizer
   ) {
-    this.router.events.subscribe(() => console.log('Route:', router.url));
     this.matIconRegister.addSvgIcon(
       'user',
       this.domSaniziter.bypassSecurityTrustResourceUrl('../assets/icons/user.svg')
