@@ -1,1 +1,23 @@
-<p>sign-in works!</p>
+<div class="container">
+    <div class="return-arrow">
+        <button mat-icon-button aria-label="Go back" (click)="goBack()">
+            <mat-icon svgIcon="arrow_left" aria-hidden="true"></mat-icon>
+        </button>
+    </div>
+    <div class="form-container">
+        <div fxHide="true" fxShow.xs="true">
+            <img class="logo" src="/assets/logo_p6.png" alt="logo"/>
+        </div>
+        <h1>Se connecter</h1>
+        <form [formGroup]="signForm">
+            <app-mdd-form-input label="Adresse e-mail" myformControlName="email" [myFormGroup]="signForm"></app-mdd-form-input>
+
+            <app-mdd-form-input label="Mot de passe" myformControlName="password" type="password" [myFormGroup]="signForm"></app-mdd-form-input>
+        
+            <div class="action-button">
+                <span *ngIf="errorMessage" class="alert-danger">{{ errorMessage }}</span>
+                <button mat-flat-button color="primary" type="submit" (click)="onSubmitForm()" [disabled]="signForm.invalid">Se connecter</button>
+            </div>
+        </form>
+    </div>
+</div>
