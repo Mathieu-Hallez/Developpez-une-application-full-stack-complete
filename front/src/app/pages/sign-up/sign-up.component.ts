@@ -1,6 +1,5 @@
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Location } from '@angular/common';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -12,7 +11,7 @@ import { AuthenticationService } from 'src/app/services/api/authentification/aut
   templateUrl: './sign-up.component.html',
   styleUrls: ['./sign-up.component.scss']
 })
-export class SignUpComponent implements OnInit, OnDestroy {
+export class SignUpComponent implements OnDestroy {
 
   private register$! : Subscription;
 
@@ -60,9 +59,6 @@ export class SignUpComponent implements OnInit, OnDestroy {
     private authService : AuthenticationService,
     private router : Router
   ) { }
-
-  ngOnInit(): void {
-  }
 
   ngOnDestroy(): void {
     this.register$?.unsubscribe();
