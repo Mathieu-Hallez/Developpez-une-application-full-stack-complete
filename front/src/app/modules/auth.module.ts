@@ -11,6 +11,7 @@ import { MatSidenavModule } from "@angular/material/sidenav";
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { ReactiveFormsModule } from "@angular/forms";
 import { HomeComponent } from "../pages/home/home.component";
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 const MatModule = [
   MatButtonModule,
@@ -25,6 +26,7 @@ const MatModule = [
   imports: [
     AuthRoutingModule,
     CommonModule,
+    FlexLayoutModule,
     ...MatModule,
     ReactiveFormsModule
   ]

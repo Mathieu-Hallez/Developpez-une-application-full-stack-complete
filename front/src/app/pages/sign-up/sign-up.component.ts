@@ -39,8 +39,6 @@ export class SignUpComponent implements OnInit, OnDestroy {
     ]
   });
 
-  isSmall : boolean = false;
-
   errorMessage : string | null = null;
 
   get usernameFormField(): AbstractControl<string> | null {
@@ -59,18 +57,11 @@ export class SignUpComponent implements OnInit, OnDestroy {
   constructor(
     private formBuilder : FormBuilder,
     private location : Location,
-    private breakpointObserver : BreakpointObserver,
     private authService : AuthenticationService,
     private router : Router
   ) { }
 
   ngOnInit(): void {
-    this.breakpointObserver.observe([
-      Breakpoints.XSmall,
-      Breakpoints.HandsetPortrait
-    ]).subscribe(result => {
-        this.isSmall = result.matches;
-    });
   }
 
   ngOnDestroy(): void {

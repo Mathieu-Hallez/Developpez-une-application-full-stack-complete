@@ -5,7 +5,9 @@
         </button>
     </div>
     <div class="form-container">
-        <img *ngIf="isSmall" class="logo" src="/assets/logo_p6.png" alt="logo"/>
+        <div fxHide="true" fxShow.xs="true">
+            <img class="logo" src="/assets/logo_p6.png" alt="logo"/>
+        </div>
         <h1>Inscription</h1>
         <form [formGroup]="signForm">
             <app-mdd-form-input label="Nom d'utilisateur" myformControlName="username" [myFormGroup]="signForm"></app-mdd-form-input>
