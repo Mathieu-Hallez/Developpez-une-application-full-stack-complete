@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout'; 
 import { Router } from '@angular/router';
+import { SessionService } from 'src/app/services/session.service';
 
 @Component({
   selector: 'app-header-app',
@@ -13,7 +14,8 @@ export class HeaderAppComponent implements OnInit {
 
   constructor(
     private breakpointObserver : BreakpointObserver,
-    public router : Router
+    public router : Router,
+    public sessionService : SessionService
   ) { }
 
   ngOnInit(): void {

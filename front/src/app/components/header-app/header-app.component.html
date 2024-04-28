@@ -14,7 +14,7 @@
       <mat-sidenav-content>
         <mat-toolbar *ngIf="!isSmall && (!router.url.includes('sign-in') || !router.url.includes('sign-up')) && !router.url.includes('home')">
             <img src="/assets/logo_p6.png" alt="logo" routerLink="/"/>
-            <div *ngIf="!isSmall" class="menu">
+            <div *ngIf="!isSmall && this.sessionService.isLogged" class="menu">
                 <a routerLink="posts">Articles</a>
                 <a routerLink="topics">Thèmes</a>
                 <button mat-fab color="accent" aria-label="User profile icon" routerLink="profile">
