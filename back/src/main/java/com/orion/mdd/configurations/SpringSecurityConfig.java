@@ -46,9 +46,7 @@ public class SpringSecurityConfig {
             "/api-docs",
             "/swagger-ui/**",
             "/swagger-resources/**",
-            "/swagger-ui.html",
-            "*", // TODO Remove for security
-            "**" // TODO Remove for security
+            "/swagger-ui.html"
     };
 
     @Bean
