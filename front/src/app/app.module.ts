@@ -16,6 +16,8 @@ import { BaseUrlInterceptor } from './interceptors/base-url.interceptor';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { AuthModule } from './modules/auth.module';
 import { SessionModule } from './modules/session.module';
+import { JwtInterceptor } from './interceptors/jwt.interceptor';
+import { ExpirySessionInterceptor } from './interceptors/expiry-session.interceptor';
 
 const MatModule = [
   MatButtonModule,
@@ -38,6 +40,16 @@ const MatModule = [
     SessionModule
   ],
   providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: JwtInterceptor,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ExpirySessionInterceptor,
+      multi: true
+    },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: BaseUrlInterceptor,

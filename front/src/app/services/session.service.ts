@@ -1,38 +1,37 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { LocalStorageService } from './local-storage.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SessionService {
 
-  private _isLogged : boolean = false;
   public get isLogged() : boolean {
-    return this._isLogged
+    return this.localStorageService.getItem('token') != null;
   }
   
-  private _token : string= '';
-  public get token() : string {
-    return this._token
+  public get token() : string | null {
+    return this.localStorageService.getItem('token');
   }
 
   private $isLoggedSubject : BehaviorSubject<boolean> = new BehaviorSubject<boolean>(this.isLogged);
 
-  constructor() { }
+  constructor(
+    private localStorageService : LocalStorageService
+  ) { }
 
   public $isLogged(): Observable<boolean> {
     return this.$isLoggedSubject.asObservable();
   }
 
   public login(token : string) {
-    this._isLogged = true;
-    this._token = token;
+    this.localStorageService.setItem('token', token);
     this.next();
   }
 
   public logout() {
-    this._isLogged = false;
-    this._token = '';
+    this.localStorageService.removeItem('token');
     this.next();
   }
 
