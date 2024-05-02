@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { LocalStorageService } from './local-storage.service';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +19,8 @@ export class SessionService {
   private $isLoggedSubject : BehaviorSubject<boolean> = new BehaviorSubject<boolean>(this.isLogged);
 
   constructor(
-    private localStorageService : LocalStorageService
+    private localStorageService : LocalStorageService,
+    private router : Router
   ) { }
 
   public $isLogged(): Observable<boolean> {
@@ -33,6 +35,7 @@ export class SessionService {
   public logout() {
     this.localStorageService.removeItem('token');
     this.next();
+    this.router.navigateByUrl('/home');
   }
 
   private next(): void {
