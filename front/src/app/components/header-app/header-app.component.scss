@@ -8,6 +8,12 @@ mat-toolbar {
     border-color: black;
     border-style: solid;
     background: #ffff;
+    div a:active {
+        color: #6C5CCF;
+    }
+    div a {
+        color: black;
+    }
 }
 
 img {
@@ -77,4 +83,8 @@ mat-nav-list {
         margin-bottom: 2rem;
         margin-right: 2rem;
     }
+}
+
+.link-active{
+    color: #6C5CCF;
 }
