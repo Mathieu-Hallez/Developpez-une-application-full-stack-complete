@@ -1,1 +1,12 @@
-<p>posts works!</p>
+<div class="page-container" fxFill fxLayout="column">
+    <div class="header-posts" fxLayout="row" fxLayoutAlign="space-between" fxLayout.lt-sm="column">
+        <button mat-flat-button color="primary" (click)="createAPost()">Créer un article</button>
+        <div fxLayoutAlign="center center">
+            <button mat-button>Trier par</button>
+            <mat-icon [ngClass]="{'thin-arrow-up': decreasingOrder}" svgIcon="thin_arrow" aria-hidden="true" aria-label="Sort arrow"></mat-icon>
+        </div>
+    </div>
+    <div class="posts-container" fxFill fxLayoutAlign="start center" fxLayoutAlign.lt-sm="center stretch">
+        <app-post-card *ngFor="let post of (posts$ | async)" [post]="post"></app-post-card>
+    </div>
+</div>

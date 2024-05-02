@@ -1,15 +1,32 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { PostDto } from 'src/app/interfaces/responses/PostDto';
+import { PostsApiService } from 'src/app/services/api/post/posts-api.service';
+import { UsersApiService } from 'src/app/services/api/users/users-api.service';
+import { SessionService } from 'src/app/services/session.service';
 
 @Component({
   selector: 'app-posts',
   templateUrl: './posts.component.html',
-  styleUrls: ['./posts.component.scss']
+  styleUrls: ['./posts.component.scss'],
 })
 export class PostsComponent implements OnInit {
 
-  constructor() { }
+  posts$ : Observable<PostDto[]> = this.usersApiService.allSubscriptionsPosts();
+
+  decreasingOrder : boolean = false;
+
+  constructor(
+    private usersApiService : UsersApiService,
+    private sessionService : SessionService
+  ) { }
 
   ngOnInit(): void {
+
+  }
+
+  createAPost(): void {
+    this.sessionService.logout();
   }
 
 }

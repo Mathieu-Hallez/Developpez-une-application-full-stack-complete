@@ -1,0 +1,14 @@
+.posts-container {
+    padding: 15px;
+    display: flex;
+    flex-flow: row wrap;
+    gap: 30px;
+}
+
+.header-posts{
+    padding: 15px;
+}
+
+.thin-arrow-up{
+    transform: rotate(180deg);
+}
