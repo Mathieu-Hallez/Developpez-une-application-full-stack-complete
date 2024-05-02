@@ -24,5 +24,9 @@ export class AppComponent {
       'arrow_left',
       this.domSaniziter.bypassSecurityTrustResourceUrl('../assets/icons/arrow-left.svg')
     );
+    this.matIconRegister.addSvgIcon(
+      'thin_arrow',
+      this.domSaniziter.bypassSecurityTrustResourceUrl('../assets/icons/thin_arrow.svg')
+    );
   }
 }
