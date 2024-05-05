@@ -48,7 +48,11 @@ public class UserController {
             return new ResponseEntity<>(new ApiResponse("Error: user not found."), HttpStatus.UNAUTHORIZED);
         }
 
-        user.getSubscribes().forEach(it -> topicDetailsDtos.add(this.topicDetailMapper.toDto(it)));
+        user.getSubscribes().forEach(it -> {
+            TopicDetailsDto topicDetailsDto = this.topicDetailMapper.toDto(it);
+            topicDetailsDto.setSubscribed(true);
+            topicDetailsDtos.add(topicDetailsDto);
+        });
 
         return ResponseEntity.ok(topicDetailsDtos);
     }
