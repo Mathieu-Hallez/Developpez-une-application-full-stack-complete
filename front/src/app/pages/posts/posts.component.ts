@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { PostDto } from 'src/app/interfaces/responses/PostDto';
 import { PostsApiService } from 'src/app/services/api/post/posts-api.service';
@@ -15,6 +15,8 @@ export class PostsComponent implements OnInit {
   posts$ : Observable<PostDto[]> = this.usersApiService.allSubscriptionsPosts();
 
   decreasingOrder : boolean = false;
+  
+  screenWidth! : number;
 
   constructor(
     private usersApiService : UsersApiService,
@@ -22,11 +24,17 @@ export class PostsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-
+    this.screenWidth = window.innerWidth;
   }
 
   createAPost(): void {
     this.sessionService.logout();
   }
+
+  @HostListener('window:resize', ['$event'])  
+  onResize() {  
+    this.screenWidth = window.innerWidth;
+    console.log(this.screenWidth)
+  }  
 
 }
