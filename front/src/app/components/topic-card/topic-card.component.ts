@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { TopicDetailsDto } from 'src/app/interfaces/responses/TopicDetailsDto';
 import { TopicsApiService } from 'src/app/services/api/topic/topics-api.service';
 
@@ -9,6 +9,9 @@ import { TopicsApiService } from 'src/app/services/api/topic/topics-api.service'
 })
 export class TopicCardComponent {
   @Input() topic! : TopicDetailsDto;
+  @Input('unsubscribe-action') hasUnsubscribeBtn : boolean = false;
+
+  @Output() unsubscribeSuccessfully : EventEmitter<void> = new EventEmitter();
 
   errorMessage : string | null = null;
 
@@ -25,5 +28,12 @@ export class TopicCardComponent {
         this.errorMessage = err.error.message;
       }
     });
+  }
+
+  unsubscribe(): void {
+    this.topicApiService.unsubscribe(this.topic.id).subscribe({
+      next: _ => this.unsubscribeSuccessfully.emit(),
+      error: err => {} //TODO Toast
+    })
   }
 }

@@ -6,8 +6,8 @@
         {{ topic.description }}
     </mat-card-content>
     <mat-card-footer fxLayoutAlign="center center">
-        <button mat-flat-button color="primary" (click)="subscribe()" [disabled]="topic.subscribed">
-            {{ topic.subscribed ? "Abonné" : "S'abonner" }}
+        <button mat-flat-button color="primary" (click)="hasUnsubscribeBtn ? unsubscribe() : subscribe()" [disabled]="topic.subscribed && !hasUnsubscribeBtn">
+            {{ topic.subscribed ? (hasUnsubscribeBtn ? "Se désabonner" : "Abonné") : "S'abonner" }}
         </button>
         <span class="alert-danger" *ngIf="errorMessage">errorMessage</span>
     </mat-card-footer>

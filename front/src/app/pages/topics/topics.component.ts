@@ -10,7 +10,7 @@ import { TopicsApiService } from 'src/app/services/api/topic/topics-api.service'
 })
 export class TopicsComponent implements OnDestroy {
 
-  
+
   private destroy$: Subject<boolean> = new Subject<boolean>();
 
   topics$ : Observable<TopicDetailsDto[]> = this.topicApiService.all().pipe(
