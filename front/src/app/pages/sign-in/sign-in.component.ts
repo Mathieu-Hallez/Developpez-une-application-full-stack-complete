@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Subject, Subscription, takeUntil } from 'rxjs';
+import { Subject, takeUntil } from 'rxjs';
 import { LoginRequest } from 'src/app/interfaces/requests/LoginRequest';
 import { AuthenticationService } from 'src/app/services/api/authentification/authentication.service';
 import { Location } from '@angular/common';
@@ -14,7 +14,7 @@ import { SessionService } from 'src/app/services/session.service';
 })
 export class SignInComponent implements OnInit, OnDestroy {
   
-  private destroy$!: Subject<boolean>;
+  private destroy$: Subject<boolean> =new Subject<boolean>();
 
   signForm : FormGroup = this.formBuilder.group({
     email: [
@@ -43,7 +43,6 @@ export class SignInComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
-    this.destroy$ = new Subject<boolean>();
     this.signForm.valueChanges.pipe(
       takeUntil(this.destroy$)
     ).subscribe(_ => this.errorMessage = null);

@@ -2,7 +2,7 @@ import { Location } from '@angular/common';
 import { Component, OnDestroy } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Subject, takeUntil } from 'rxjs';
 import { RegisterRequest } from 'src/app/interfaces/requests/RegisterRequest';
 import { AuthenticationService } from 'src/app/services/api/authentification/authentication.service';
 
@@ -13,7 +13,7 @@ import { AuthenticationService } from 'src/app/services/api/authentification/aut
 })
 export class SignUpComponent implements OnDestroy {
 
-  private register$! : Subscription;
+  private destroy$ : Subject<boolean> = new Subject<boolean>();
 
   signForm : FormGroup = this.formBuilder.group({
     username: [
@@ -61,15 +61,19 @@ export class SignUpComponent implements OnDestroy {
   ) { }
 
   ngOnDestroy(): void {
-    this.register$?.unsubscribe();
+    this.destroy$.next(true);
   }
 
   onSubmitForm(): void {
     const registerRequest = this.signForm.value as RegisterRequest;
-    this.register$ = this.authService.register(registerRequest).subscribe({
-      next: _ => this.router.navigateByUrl('/sign-in'),
-      error: error => this.errorMessage = error.error.message
-    })
+    this.authService.register(registerRequest)
+      .pipe(
+        takeUntil(this.destroy$)
+      )
+      .subscribe({
+        next: _ => this.router.navigateByUrl('/sign-in'),
+        error: error => this.errorMessage = error.error.message
+      });
   }
 
   goBack(): void {

@@ -1,7 +1,6 @@
-import { Component, HostListener, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Component, HostListener, OnDestroy } from '@angular/core';
+import { Observable, Subject, takeUntil } from 'rxjs';
 import { PostDto } from 'src/app/interfaces/responses/PostDto';
-import { PostsApiService } from 'src/app/services/api/post/posts-api.service';
 import { UsersApiService } from 'src/app/services/api/users/users-api.service';
 import { SessionService } from 'src/app/services/session.service';
 
@@ -10,21 +9,23 @@ import { SessionService } from 'src/app/services/session.service';
   templateUrl: './posts.component.html',
   styleUrls: ['./posts.component.scss'],
 })
-export class PostsComponent implements OnInit {
+export class PostsComponent implements OnDestroy {
 
-  posts$ : Observable<PostDto[]> = this.usersApiService.allSubscriptionsPosts();
+  private destroy$ : Subject<boolean> = new Subject<boolean>();
+
+  posts$ : Observable<PostDto[]> = this.usersApiService.allSubscriptionsPosts().pipe(takeUntil(this.destroy$));
 
   decreasingOrder : boolean = false;
-  
-  screenWidth! : number;
+
+  screenWidth : number = window.innerWidth;
 
   constructor(
     private usersApiService : UsersApiService,
     private sessionService : SessionService
   ) { }
 
-  ngOnInit(): void {
-    this.screenWidth = window.innerWidth;
+  ngOnDestroy(): void {
+    this.destroy$.next(true);
   }
 
   createAPost(): void {
