@@ -1,0 +1,14 @@
+<mat-card appearance="outlined">
+    <mat-card-header fxLayout="column">
+        <mat-card-title fxFlex>{{ topic.title | titlecase }}</mat-card-title>
+    </mat-card-header>
+    <mat-card-content fxFlex>
+        {{ topic.description }}
+    </mat-card-content>
+    <mat-card-footer fxLayoutAlign="center center">
+        <button mat-flat-button color="primary" (click)="subscribe()" [disabled]="topic.subscribed">
+            {{ topic.subscribed ? "Abonné" : "S'abonner" }}
+        </button>
+        <span class="alert-danger" *ngIf="errorMessage">errorMessage</span>
+    </mat-card-footer>
+</mat-card>

@@ -1,0 +1,21 @@
+mat-card {
+    background-color: #F5F5F5;
+    height: 161px;
+    width: 392px;
+}
+
+mat-card-footer {
+    padding-bottom: 10px;
+    button {
+        width: 167px;
+    }
+}
+
+mat-card-content {
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.alert-danger {
+    color: #cc1d33
+}

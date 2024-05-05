@@ -7,6 +7,8 @@ import { MatCardModule } from '@angular/material/card';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { TopicCardComponent } from '../components/topic-card/topic-card.component';
+import { TopicsComponent } from '../pages/topics/topics.component';
 
 const MatModule = [
   MatCardModule,
@@ -16,7 +18,7 @@ const MatModule = [
 
 
 @NgModule({
-  declarations: [PostsComponent, PostCardComponent],
+  declarations: [PostsComponent, PostCardComponent, TopicCardComponent, TopicsComponent],
   imports: [
     SessionRoutingModule,
     CommonModule,
