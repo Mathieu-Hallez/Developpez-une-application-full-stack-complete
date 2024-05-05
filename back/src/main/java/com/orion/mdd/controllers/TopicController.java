@@ -26,7 +26,6 @@ import java.util.Set;
 
 @RestController
 @RequestMapping("/api/topics/")
-@CrossOrigin(origins = "http://localhost:4200")
 @Tag(name = "Topics", description = "The Topics API. Contains all the operations that can be performed on topics.")
 public class TopicController {
 
@@ -85,10 +84,10 @@ public class TopicController {
         subscribers.add(user);
         subscribes.add(topic);
 
-        this.topicService.update(topic);
+        TopicDetailsDto topicDetailsDto = this.topicMapper.toDto(this.topicService.update(topic));
         this.userService.update(user);
 
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<TopicDetailsDto>(topicDetailsDto, HttpStatus.OK);
     }
 
     @PutMapping("/{id}/unsubscribe")

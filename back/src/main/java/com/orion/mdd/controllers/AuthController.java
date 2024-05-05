@@ -33,7 +33,6 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/auth")
-@CrossOrigin(origins = "http://localhost:4200")
 @Tag(name = "Authentication", description = "The Authentication API. Contains all the operations that can be performed for authentication.")
 public class AuthController {
     private static final Logger log = LoggerFactory.getLogger(AuthController.class);

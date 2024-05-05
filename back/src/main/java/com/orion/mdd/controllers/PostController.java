@@ -31,7 +31,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/posts")
-@CrossOrigin(origins = "http://localhost:4200")
 @Tag(name = "Posts", description = "The Posts API. Contains all the operations that can be performed on posts.")
 public class PostController {
 
