@@ -18,8 +18,6 @@ import { AuthModule } from './modules/auth.module';
 import { SessionModule } from './modules/session.module';
 import { JwtInterceptor } from './interceptors/jwt.interceptor';
 import { ExpirySessionInterceptor } from './interceptors/expiry-session.interceptor';
-import { PostCardComponent } from './components/post-card/post-card.component';
-import {MatCardModule} from '@angular/material/card';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { RouterModule } from '@angular/router';
 
