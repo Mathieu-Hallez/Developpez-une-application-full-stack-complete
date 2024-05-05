@@ -1,0 +1,16 @@
+<div fxFill>
+    <div>
+        <h2>Profil utilisateur</h2>
+        <form>
+
+        </form>
+        <a href="" (click)="logout()">Se déconnecter</a>
+    </div>
+    <mat-divider inset></mat-divider>
+    <div>
+        <h2>Abonnements</h2>
+        <div>
+            <app-topic-card [unsubscribe-action]="true" *ngFor="let topic of (topics$ | async)" [topic]="topic" (unsubscribeSuccessfully)="fetchTopics()"></app-topic-card>
+        </div>
+    </div>
+</div>

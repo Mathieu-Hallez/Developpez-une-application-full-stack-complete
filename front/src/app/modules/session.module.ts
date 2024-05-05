@@ -9,16 +9,21 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { TopicCardComponent } from '../components/topic-card/topic-card.component';
 import { TopicsComponent } from '../pages/topics/topics.component';
+import { ProfileComponent } from '../pages/profile/profile.component';
+import { MatDividerModule } from '@angular/material/divider';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 const MatModule = [
   MatCardModule,
   MatIconModule,
-  MatButtonModule
+  MatButtonModule,
+  MatDividerModule,
+  MatSnackBarModule
 ]
 
 
 @NgModule({
-  declarations: [PostsComponent, PostCardComponent, TopicCardComponent, TopicsComponent],
+  declarations: [PostsComponent, PostCardComponent, TopicCardComponent, TopicsComponent, ProfileComponent],
   imports: [
     SessionRoutingModule,
     CommonModule,
