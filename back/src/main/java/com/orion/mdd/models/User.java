@@ -22,7 +22,6 @@ public class User extends AbstractAuditable<String> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @NotNull
     @ToStringExclude
     private Integer id;
 

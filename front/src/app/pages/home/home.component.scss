@@ -5,3 +5,15 @@
   align-items: center;
   flex-direction: column;
 }
+
+.action-container {
+  display: flex;
+  justify-content: space-around;
+  flex-flow: row wrap;
+  gap: 5rem;
+}
+
+
+button {
+  width: 10rem;
+}

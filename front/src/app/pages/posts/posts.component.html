@@ -1,0 +1,12 @@
+<div fxFill fxLayout="column">
+    <div class="header-posts" fxLayout="row" fxLayoutAlign="space-between" fxLayout.lt-sm="column" fxLayoutAlign.lt-sm="center center">
+        <button mat-flat-button color="primary" (click)="createAPost()">Créer un article</button>
+        <button mat-button fxLayout="row-reverse" fxLayoutAlign="center center">
+            <span>Trier par</span>
+            <mat-icon [ngClass]="{'thin-arrow-up': decreasingOrder}" svgIcon="thin_arrow" aria-hidden="true" aria-label="Sort arrow"></mat-icon>
+        </button>
+    </div>
+    <div class="posts-container" [fxLayoutAlign]="this.screenWidth < 778 ? 'center stretch' : 'start center'">
+        <app-post-card *ngFor="let post of (posts$ | async)" [post]="post"></app-post-card>
+    </div>
+</div>

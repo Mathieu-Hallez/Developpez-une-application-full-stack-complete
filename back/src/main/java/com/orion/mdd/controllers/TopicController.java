@@ -43,11 +43,21 @@ public class TopicController {
     private AbstractPostMapper postMapper;
 
     @GetMapping("/")
-    public ResponseEntity<List<TopicDetailsDto>> getAllTopics() {
+    public ResponseEntity<?> getAllTopics(Authentication authentication) {
         List<TopicDetailsDto> topicDetailsDtos = new ArrayList<>();
         Iterable<Topic> topicsIterable = this.topicService.getAll();
 
-        topicsIterable.forEach(it -> topicDetailsDtos.add(topicMapper.toDto(it)));
+        User user = this.userService.getUser(authentication.getName());
+        if(user == null) {
+            return new ResponseEntity<>(new ApiResponse("Error: unknown user."), HttpStatus.UNAUTHORIZED);
+        }
+
+
+        topicsIterable.forEach(it -> {
+            TopicDetailsDto topicDetailsDto = topicMapper.toDto(it);
+            topicDetailsDto.setSubscribed(it.getSubscribers().contains(user));
+            topicDetailsDtos.add(topicDetailsDto);
+        });
 
         return ResponseEntity.ok(topicDetailsDtos);
     }
@@ -84,10 +94,11 @@ public class TopicController {
         subscribers.add(user);
         subscribes.add(topic);
 
-        this.topicService.update(topic);
+        TopicDetailsDto topicDetailsDto = this.topicMapper.toDto(this.topicService.update(topic));
+        topicDetailsDto.setSubscribed(true);
         this.userService.update(user);
 
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<TopicDetailsDto>(topicDetailsDto, HttpStatus.OK);
     }
 
     @PutMapping("/{id}/unsubscribe")

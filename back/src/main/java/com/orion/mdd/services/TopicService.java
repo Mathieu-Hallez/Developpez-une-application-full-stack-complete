@@ -22,7 +22,7 @@ public class TopicService {
         return this.topicRepository.findAll();
     }
 
-    public void update(Topic topic) {
-        this.topicRepository.save(topic);
+    public Topic update(Topic topic) {
+        return this.topicRepository.save(topic);
     }
 }

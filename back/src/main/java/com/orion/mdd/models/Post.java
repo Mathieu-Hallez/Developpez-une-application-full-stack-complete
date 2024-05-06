@@ -24,7 +24,6 @@ import java.util.Set;
 public class Post extends AbstractAuditable<String> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @NotNull
     private Integer id;
 
     @NotNull

@@ -1,0 +1,32 @@
+<mat-sidenav-container class="sidenav-container">
+      <mat-sidenav #snav [mode]="'over'" [position]="'end'">
+        <div class="sidenav-section">
+            <mat-nav-list>
+                <a routerLink="session/posts" routerLinkActive="link-active">Articles</a>
+                <a routerLink="session/topics" routerLinkActive="link-active">Thèmes</a>
+            </mat-nav-list>
+            <button mat-fab color="accent" aria-label="User profile icon" routerLink="session/profile">
+                <mat-icon svgIcon="user" aria-hidden="true"></mat-icon>
+            </button>
+        </div>
+      </mat-sidenav>
+
+      <mat-sidenav-content>
+        <mat-toolbar *ngIf="(!isSmall || !router.url.includes('sign-in')) && (!isSmall || !router.url.includes('sign-up')) && !router.url.includes('home')">
+            <img src="/assets/logo_p6.png" alt="logo" [routerLink]="this.sessionService.isLogged ? '/session/posts' : '/'"/>
+            <div *ngIf="!isSmall && this.sessionService.isLogged" class="menu">
+                <a routerLink="session/posts" routerLinkActive="link-active">Articles</a>
+                <a routerLink="session/topics" routerLinkActive="link-active">Thèmes</a>
+                <button mat-fab color="accent" aria-label="User profile icon" routerLink="session/profile">
+                    <mat-icon svgIcon="user" aria-hidden="true"></mat-icon>
+                </button>
+            </div>
+            <button *ngIf="isSmall" mat-icon-button color="grey" aria-label="Side Nav button" (click)="snav.toggle()">
+                <mat-icon aria-hidden="true">density_medium</mat-icon>
+            </button>
+        </mat-toolbar>
+        <div class="content">
+            <ng-content></ng-content>
+        </div>
+      </mat-sidenav-content>
+</mat-sidenav-container>

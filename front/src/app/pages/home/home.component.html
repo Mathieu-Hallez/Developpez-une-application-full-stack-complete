@@ -1,5 +1,7 @@
 <div class="center">
-  <img src="/assets/logo_p6.png" alt="logo" />
-  <h1>Welcome to MDD</h1>
-  <button mat-raised-button color="primary" (click)="start()">Commencer</button>
+  <img class="responsive-img" src="/assets/logo_p6.png" alt="logo"/>
+  <div class="action-container" fxLayout.lt-sm="column" fxLayoutAlign.lt-sm="center center">
+    <button mat-stroked-button color="primary" routerLink="/sign-in">Se connecter</button>
+    <button mat-stroked-button color="primary" routerLink="/sign-up">S'inscrire</button>
+  </div>
 </div>

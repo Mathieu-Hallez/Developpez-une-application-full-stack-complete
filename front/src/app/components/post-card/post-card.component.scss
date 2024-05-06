@@ -1,0 +1,10 @@
+mat-card {
+    background-color: #F5F5F5;
+    height: 180px;
+    width: 359px;
+}
+
+mat-card-content {
+    text-overflow: ellipsis;
+    overflow: hidden;
+}

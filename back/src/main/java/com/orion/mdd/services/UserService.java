@@ -28,10 +28,7 @@ public class UserService {
         return this.userRepository.findByEmail(email).orElse(null);
     }
 
-    public void createUser(final String email, final String username, String password) {
-        // TODO Vérifier les critères de la validations mots de passe
-
-
+    public void createUser(final String email, final String username, final String password) {
         User user = User.builder()
                 .email(email)
                 .username(username)

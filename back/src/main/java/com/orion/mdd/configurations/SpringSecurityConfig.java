@@ -29,6 +29,13 @@ import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
+
+import java.util.Arrays;
+import java.util.List;
 
 @Configuration
 @EnableWebSecurity
@@ -46,9 +53,7 @@ public class SpringSecurityConfig {
             "/api-docs",
             "/swagger-ui/**",
             "/swagger-resources/**",
-            "/swagger-ui.html",
-            "*", // TODO Remove for security
-            "**" // TODO Remove for security
+            "/swagger-ui.html"
     };
 
     @Bean
@@ -63,7 +68,19 @@ public class SpringSecurityConfig {
                         }
                 )
                 .httpBasic(Customizer.withDefaults())
+                .cors((cors) -> cors.configurationSource(apiConfigurationSource()))
                 .build();
+    }
+
+    CorsConfigurationSource apiConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOrigins(List.of("http://localhost:4200"));
+        configuration.addAllowedMethod("*");
+        configuration.setAllowCredentials(true);
+        configuration.addAllowedHeader("*");
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
     }
 
     @Bean
