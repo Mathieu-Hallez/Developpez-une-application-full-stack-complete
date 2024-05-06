@@ -62,16 +62,6 @@ public class TopicController {
         return ResponseEntity.ok(topicDetailsDtos);
     }
 
-    @GetMapping("/{id}/posts")
-    public ResponseEntity<List<PostDto>> getAllPostsTopic(@PathVariable("id") final Integer id) {
-        List<PostDto> postDtos = new ArrayList<>();
-        Iterable<Post> postIterable = this.postService.getAllPostsOfATopic(id);
-        
-        postIterable.forEach(it -> postDtos.add(this.postMapper.toDto(it)));
-        
-        return ResponseEntity.ok(postDtos);
-    }
-
     @PutMapping("/{id}/subscribe")
     public ResponseEntity<?> subscribe(Authentication authentication, @PathVariable("id") final Integer id) {
         User user = this.userService.getUser(authentication.getName());
