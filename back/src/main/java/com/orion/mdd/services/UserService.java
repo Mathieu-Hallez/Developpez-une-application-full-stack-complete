@@ -44,7 +44,7 @@ public class UserService {
         return this.userRepository.existsByEmail(email);
     }
 
-    public void update(User user) {
-        this.userRepository.save(user);
+    public User update(User user) {
+        return this.userRepository.save(user);
     }
 }

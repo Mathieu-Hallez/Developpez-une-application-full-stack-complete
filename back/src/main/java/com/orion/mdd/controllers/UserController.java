@@ -9,6 +9,7 @@ import com.orion.mdd.dtos.user.UpdateUserDto;
 import com.orion.mdd.mappers.AbstractPostMapper;
 import com.orion.mdd.mappers.AbstractTopicDetailMapper;
 import com.orion.mdd.mappers.AbstractTopicMapper;
+import com.orion.mdd.mappers.AbstractUserMapper;
 import com.orion.mdd.models.Topic;
 import com.orion.mdd.models.User;
 import com.orion.mdd.services.UserService;
@@ -39,6 +40,19 @@ public class UserController {
     @Autowired
     private AbstractPostMapper postMapper;
 
+    @Autowired
+    private AbstractUserMapper userMapper;
+
+    @GetMapping("/me")
+    public ResponseEntity<?> getMe(Authentication authentication) {
+        User user = this.userService.getUser(authentication.getName());
+        if(user == null) {
+            return new ResponseEntity<>(new ApiResponse("Error: user not found."), HttpStatus.UNAUTHORIZED);
+        }
+
+        return new ResponseEntity<UpdateUserDto>(this.userMapper.toDto(this.userService.update(user)), HttpStatus.OK);
+    }
+
     @GetMapping("/subscriptions")
     public ResponseEntity<?> getAllSubscriptions(Authentication authentication) {
         List<TopicDetailsDto> topicDetailsDtos = new ArrayList<>();
@@ -61,7 +75,7 @@ public class UserController {
     public ResponseEntity<?> update(Authentication authentication, @RequestBody(required=false) UpdateUserDto updateUserDto) {
         User user = this.userService.getUser(authentication.getName());
         if(user == null) {
-            return new ResponseEntity<>(new ApiResponse("Error: user not found."), HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity<ApiResponse>(new ApiResponse("Error: user not found."), HttpStatus.UNAUTHORIZED);
         }
 
         if(updateUserDto.getUsername() != null) {
@@ -72,9 +86,7 @@ public class UserController {
             user.setEmail(updateUserDto.getEmail());
         }
 
-        this.userService.update(user);
-
-        return ResponseEntity.ok().build();
+        return new ResponseEntity<UpdateUserDto>(this.userMapper.toDto(this.userService.update(user)), HttpStatus.OK);
     }
 
     @GetMapping("/subscriptions/posts")
