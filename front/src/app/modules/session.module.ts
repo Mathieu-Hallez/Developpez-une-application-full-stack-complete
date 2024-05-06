@@ -12,6 +12,8 @@ import { TopicsComponent } from '../pages/topics/topics.component';
 import { ProfileComponent } from '../pages/profile/profile.component';
 import { MatDividerModule } from '@angular/material/divider';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { ReactiveFormsModule } from "@angular/forms";
+import { SharedModule } from './shared/shared.module';
 
 const MatModule = [
   MatCardModule,
@@ -19,7 +21,7 @@ const MatModule = [
   MatButtonModule,
   MatDividerModule,
   MatSnackBarModule
-]
+];
 
 
 @NgModule({
@@ -28,7 +30,9 @@ const MatModule = [
     SessionRoutingModule,
     CommonModule,
     FlexLayoutModule,
-    ...MatModule
+    ...MatModule,
+    ReactiveFormsModule,
+    SharedModule
   ]
 })
 export class SessionModule { }

@@ -1,5 +1,5 @@
 <div fxFill fxLayout="column">
-    <div class="posts-container" fxFill fxLayoutAlign="start center" fxLayoutAlign.lt-md="center stretch">
+    <div class="topics-container" fxFill fxLayoutAlign="start center" fxLayoutAlign.lt-md="center stretch">
         <app-topic-card *ngFor="let topic of (topics$ | async)" [topic]="topic"></app-topic-card>
     </div>
 </div>
