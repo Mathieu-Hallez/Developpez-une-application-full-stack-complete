@@ -17,17 +17,22 @@ mat-card {
 }
 
 mat-card-header div {
-
     padding-bottom: 4px;
-    padding-top: 8px;
+    padding-top: 4px;
 }
 
 mat-card-content {
     padding-right: 16px;
     padding-left: 16px;
     padding-top: 4px;
-    display: block;
-    white-space-collapse: collapse;
+}
+
+.content {
+    display: -webkit-box;
+    -webkit-line-clamp: 5;
+    -webkit-box-orient: vertical;
     overflow: hidden;
-    text-overflow: "...";
+    font-size: 14px;
+    line-height: 16.94px;
+    font-weight: 400;
 }
