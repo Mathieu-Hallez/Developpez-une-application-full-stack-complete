@@ -1,10 +1,9 @@
 import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import * as dayjs from 'dayjs';
-import { Observable, Subject, takeUntil } from 'rxjs';
+import { Subject, map, takeUntil } from 'rxjs';
 import { PostDto } from 'src/app/interfaces/responses/PostDto';
 import { UsersApiService } from 'src/app/services/api/users/users-api.service';
-import { SessionService } from 'src/app/services/session.service';
 
 @Component({
   selector: 'app-posts',
@@ -27,8 +26,14 @@ export class PostsComponent implements OnDestroy, OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.usersApiService.allSubscriptionsPosts().pipe(takeUntil(this.destroy$)).subscribe({
-      next: posts => this.posts = posts
+    this.usersApiService.allSubscriptionsPosts().pipe(
+      takeUntil(this.destroy$),
+      map(posts => posts.sort(this.comparePost))
+    ).subscribe({
+      next: posts => {
+        this.posts = posts;
+        this.descendingOrder = false;
+      }
     });
   }
 
@@ -54,9 +59,9 @@ export class PostsComponent implements OnDestroy, OnInit {
     const dateA = dayjs(a.created_at);
     const dateB = dayjs(b.created_at);
     if(this.descendingOrder) {
-      return dateB.diff(dateA);
-    } else {
       return dateA.diff(dateB);
+    } else {
+      return dateB.diff(dateA);
     }
   }
 }
