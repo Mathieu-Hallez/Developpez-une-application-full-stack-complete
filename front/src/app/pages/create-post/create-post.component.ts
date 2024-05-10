@@ -6,7 +6,6 @@ import { MddSelectOption } from 'src/app/pipes/format-options.pipe';
 import { TopicsApiService } from 'src/app/services/api/topic/topics-api.service';
 import { Location } from '@angular/common';
 import { PostsApiService } from 'src/app/services/api/post/posts-api.service';
-import { CreatePostDto } from 'src/app/interfaces/requests/CreatePostDto';
 
 @Component({
   selector: 'app-create-post',
