@@ -8,12 +8,6 @@ mat-toolbar {
     border-color: black;
     border-style: solid;
     background: #ffff;
-    div a:active {
-        color: #6C5CCF;
-    }
-    div a {
-        color: black;
-    }
 }
 
 img {
@@ -34,17 +28,6 @@ button {
     justify-content: space-around;
     align-items: center;
     width: 25rem;
-    a {
-        font-size: 20px;
-        font-weight: 400;
-        font-style: normal;
-        font-family: 'Inter';
-        text-decoration: none;
-        &:active {
-            font-style: normal;
-            color: #6C5CCF;
-        }
-    }
 }
 
 mat-nav-list {
@@ -72,9 +55,6 @@ mat-nav-list {
     align-items: flex-end;
     justify-content: space-between;
     height: 100%;
-    a {
-        font-size: 20px;
-    }
     mat-nav-list {
         margin-top: 7rem;
         margin-right: 2rem;
@@ -85,6 +65,15 @@ mat-nav-list {
     }
 }
 
-.link-active{
+a {
+    font-size: 20px;
+    font-weight: 400;
+    font-style: normal;
+    font-family: 'Inter';
+    text-decoration: none;
+    color: #000000;
+}
+
+.active{
     color: #6C5CCF;
 }

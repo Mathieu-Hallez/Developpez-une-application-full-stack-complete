@@ -2,8 +2,8 @@
       <mat-sidenav #snav [mode]="'over'" [position]="'end'">
         <div class="sidenav-section">
             <mat-nav-list>
-                <a routerLink="session/posts" routerLinkActive="link-active">Articles</a>
-                <a routerLink="session/topics" routerLinkActive="link-active">Thèmes</a>
+                <a routerLink="session/posts" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Articles</a>
+                <a routerLink="session/topics" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Thèmes</a>
             </mat-nav-list>
             <button mat-fab color="accent" aria-label="User profile icon" routerLink="session/profile">
                 <mat-icon svgIcon="user" aria-hidden="true"></mat-icon>
@@ -15,8 +15,8 @@
         <mat-toolbar *ngIf="(!isSmall || !router.url.includes('sign-in')) && (!isSmall || !router.url.includes('sign-up')) && !router.url.includes('home')">
             <img src="/assets/logo_p6.png" alt="logo" [routerLink]="this.sessionService.isLogged ? '/session/posts' : '/'"/>
             <div *ngIf="!isSmall && this.sessionService.isLogged" class="menu">
-                <a routerLink="session/posts" routerLinkActive="link-active">Articles</a>
-                <a routerLink="session/topics" routerLinkActive="link-active">Thèmes</a>
+                <a routerLink="session/posts" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Articles</a>
+                <a routerLink="session/topics" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Thèmes</a>
                 <button mat-fab color="accent" aria-label="User profile icon" routerLink="session/profile">
                     <mat-icon svgIcon="user" aria-hidden="true"></mat-icon>
                 </button>
