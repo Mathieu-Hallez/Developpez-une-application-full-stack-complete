@@ -16,7 +16,12 @@ const MatModule = [
 ]
 
 @NgModule({
-  declarations: [MddFormInputComponent, MddFormSelectComponent, FormatOptionsPipe, MddFormTextareaComponent],
+  declarations: [
+    MddFormInputComponent,
+    MddFormSelectComponent,
+    FormatOptionsPipe,
+    MddFormTextareaComponent
+  ],
   imports: [
     CommonModule,
     ReactiveFormsModule,

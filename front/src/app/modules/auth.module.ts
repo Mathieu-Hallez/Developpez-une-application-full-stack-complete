@@ -22,7 +22,11 @@ const MatModule = [
 ]
 
 @NgModule({
-  declarations: [HomeComponent, SignInComponent, SignUpComponent],
+  declarations: [
+    HomeComponent,
+    SignInComponent,
+    SignUpComponent
+  ],
   imports: [
     AuthRoutingModule,
     CommonModule,
