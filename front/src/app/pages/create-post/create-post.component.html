@@ -1,0 +1,21 @@
+<div class="container">
+    <div class="return-arrow" >
+        <button mat-icon-button aria-label="Go back" (click)="goBack()">
+            <mat-icon svgIcon="arrow_left" aria-hidden="true"></mat-icon>
+        </button>
+    </div>
+    <h1>Créer un nouvel article</h1>
+    <form [formGroup]="postForm" fxLayout="column" fxLayoutAlign="center center">
+        
+        <app-mdd-form-select placeholder="Sélection un thème" myFormControlName="topic" [myFormGroup]="postForm" [options]="topics$ | async | formatOptions:formatTopicOption"></app-mdd-form-select>
+
+        <app-mdd-form-input placeholder="Titre de l'article" myformControlName="title" [myFormGroup]="postForm"></app-mdd-form-input>
+
+        <app-mdd-form-textarea placeholder="Contenu de l'article" myFormControlName="content" [myFormGroup]="postForm"></app-mdd-form-textarea>
+
+        <div class="action-button">
+            <span *ngIf="errorMessage" class="alert-danger">{{ errorMessage }}</span>
+            <button mat-flat-button color="primary" type="submit" (click)="onSubmitForm()" [disabled]="postForm.invalid">Créer</button>
+        </div>
+    </form>
+</div>

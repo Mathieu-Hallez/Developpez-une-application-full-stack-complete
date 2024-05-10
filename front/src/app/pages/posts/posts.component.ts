@@ -1,4 +1,5 @@
 import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import * as dayjs from 'dayjs';
 import { Observable, Subject, takeUntil } from 'rxjs';
 import { PostDto } from 'src/app/interfaces/responses/PostDto';
@@ -22,7 +23,7 @@ export class PostsComponent implements OnDestroy, OnInit {
 
   constructor(
     private usersApiService : UsersApiService,
-    private sessionService : SessionService
+    private router : Router
   ) { }
 
   ngOnInit(): void {
@@ -36,18 +37,17 @@ export class PostsComponent implements OnDestroy, OnInit {
   }
 
   createAPost(): void {
-    this.sessionService.logout();
+    this.router.navigateByUrl('/session/posts/create');
   }
 
   @HostListener('window:resize', ['$event'])  
   onResize() {  
     this.screenWidth = window.innerWidth;
-    console.log(this.screenWidth)
   }
 
   switchOrderBy(): void {
     this.descendingOrder = !this.descendingOrder;
-    this.posts = this.posts.sort(this.comparePost)
+    this.posts = this.posts.sort(this.comparePost);
   }
 
   comparePost = (a : PostDto, b : PostDto): number => {
