@@ -4,12 +4,14 @@ import { PostsComponent } from "../pages/posts/posts.component";
 import { TopicsComponent } from "../pages/topics/topics.component";
 import { ProfileComponent } from "../pages/profile/profile.component";
 import { CreatePostComponent } from "../pages/create-post/create-post.component";
+import { PostComponent } from "../pages/post/post.component";
 
 const routes: Routes = [
     { path: 'posts', component: PostsComponent},
     { path: 'topics', component: TopicsComponent},
     { path: 'profile', component: ProfileComponent},
-    { path: 'posts/create', component: CreatePostComponent}
+    { path: 'posts/create', component: CreatePostComponent},
+    { path: 'posts/:id', component: PostComponent}
 ];
 
 @NgModule({

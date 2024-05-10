@@ -15,6 +15,7 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { ReactiveFormsModule } from "@angular/forms";
 import { SharedModule } from './shared/shared.module';
 import { CreatePostComponent } from '../pages/create-post/create-post.component';
+import { PostComponent } from '../pages/post/post.component';
 
 const MatModule = [
   MatCardModule,
@@ -26,7 +27,15 @@ const MatModule = [
 
 
 @NgModule({
-  declarations: [PostsComponent, PostCardComponent, TopicCardComponent, TopicsComponent, ProfileComponent, CreatePostComponent],
+  declarations: [
+    PostsComponent,
+    PostCardComponent,
+    TopicCardComponent,
+    TopicsComponent,
+    ProfileComponent,
+    CreatePostComponent,
+    PostComponent
+  ],
   imports: [
     SessionRoutingModule,
     CommonModule,
