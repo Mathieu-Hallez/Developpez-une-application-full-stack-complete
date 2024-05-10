@@ -1,1 +1,36 @@
-<p>post works!</p>
+<div *ngIf="post" class="container" fxLayout="row" fxLayoutAlign="start start">
+    <div>
+        <div class="return-arrow" >
+            <button mat-icon-button aria-label="Go back" (click)="goBack()">
+                <mat-icon svgIcon="arrow_left" aria-hidden="true"></mat-icon>
+            </button>
+        </div>
+    </div>
+    <div fxFlex fxLayout="column">
+        <div>
+            <h1>{{ post.title | titlecase }}</h1>
+            <div>
+                <span>{{ post.created_at | date:'dd/MM/YYYY HH:mm' }}</span>
+                <span>{{ post.author.username }}</span>
+                <span>{{ post.topic.title | titlecase }}</span>
+            </div>
+            <p>Content: {{ post.content }}</p>
+        </div>
+        <hr fxFill>
+        <div>
+            <h2>Commentaires</h2>
+            <cdk-virtual-scroll-viewport itemSize="100">
+                <dl>
+                    <!-- TODO Comment component -->
+                </dl>
+            </cdk-virtual-scroll-viewport>
+            <form>
+                <app-mdd-form-textarea placeholder="Écrivez ici votre commentaire"></app-mdd-form-textarea>
+                <button mat-icon-button>
+                    <mat-icon svgIcon="send" aria-hidden="true"></mat-icon>
+                </button>
+            </form>
+        </div>
+        
+    </div>
+</div>

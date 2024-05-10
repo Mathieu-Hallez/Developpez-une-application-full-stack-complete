@@ -16,6 +16,7 @@ import { ReactiveFormsModule } from "@angular/forms";
 import { SharedModule } from './shared/shared.module';
 import { CreatePostComponent } from '../pages/create-post/create-post.component';
 import { PostComponent } from '../pages/post/post.component';
+import {ScrollingModule} from '@angular/cdk/scrolling';
 
 const MatModule = [
   MatCardModule,
@@ -23,6 +24,7 @@ const MatModule = [
   MatButtonModule,
   MatDividerModule,
   MatSnackBarModule,
+  ScrollingModule
 ];
 
 
