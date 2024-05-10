@@ -65,7 +65,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.destroy$.next(true);
   }
 
-  fetchTopics() {
+  fetchTopics(): void {
     this.topics$ = this.userApiService.subscriptions().pipe(
       takeUntil(this.destroy$)
     );
