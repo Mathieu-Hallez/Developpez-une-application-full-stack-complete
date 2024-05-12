@@ -29,7 +29,8 @@ export class PostComponent implements OnInit, OnDestroy {
     content: [
       '',
       [
-        Validators.required
+        Validators.required,
+        Validators.maxLength(255)
       ]
     ]
   })
