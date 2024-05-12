@@ -7,6 +7,7 @@ import { Location } from '@angular/common';
 import { CommentDto } from 'src/app/interfaces/responses/CommentDto';
 import * as dayjs from 'dayjs';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-post',
@@ -34,6 +35,7 @@ export class PostComponent implements OnInit, OnDestroy {
       ]
     ]
   });
+  xSmallBreakPoint : boolean = false;
 
   get contentField(): AbstractControl<string> | null {
     return this.commentForm.get('content');
@@ -44,7 +46,8 @@ export class PostComponent implements OnInit, OnDestroy {
     private router : Router,
     private location : Location,
     private postsApiService : PostsApiService,
-    private formBuilder : FormBuilder
+    private formBuilder : FormBuilder,
+    private responsive: BreakpointObserver
   ) {}
 
   ngOnInit(): void {
@@ -62,7 +65,18 @@ export class PostComponent implements OnInit, OnDestroy {
         console.error(err?.error?.message);
         this.router.navigateByUrl('/404');
       }
-    })
+    });
+
+    this.responsive.observe(Breakpoints.XSmall)
+      .subscribe(result => {
+
+        if (result.matches) {
+          this.xSmallBreakPoint = true;
+        } else {
+          this.xSmallBreakPoint = false;
+        }
+
+  });
   }
 
   ngOnDestroy(): void {
@@ -87,12 +101,10 @@ export class PostComponent implements OnInit, OnDestroy {
   }
 
   onSendComment(): void {
-    console.log("Commented: " + JSON.stringify(this.commentForm.value['content']));
     this.postsApiService.comment(this.post.id, this.commentForm.value['content']).pipe(
       takeUntil(this.destroy$)
     ).subscribe({
       next: _ => {
-        //TODO TOAST for success
         this.commentForm.reset();
         this.fetchComments();
       },

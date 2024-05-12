@@ -1,6 +1,6 @@
 <div *ngIf="post" class="container" fxLayout="row" fxLayoutAlign="start start">
-    <div>
-        <div class="return-arrow" >
+    <div *ngIf="!xSmallBreakPoint">
+        <div class="return-arrow">
             <button mat-icon-button aria-label="Go back" (click)="goBack()">
                 <mat-icon svgIcon="arrow_left" aria-hidden="true"></mat-icon>
             </button>
@@ -8,7 +8,14 @@
     </div>
     <div fxFlex fxLayout="column" class="main">
         <div>
-            <h1>{{ post.title | titlecase }}</h1>
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <div class="return-arrow" *ngIf="xSmallBreakPoint">
+                    <button mat-icon-button aria-label="Go back" (click)="goBack()">
+                        <mat-icon svgIcon="arrow_left" aria-hidden="true"></mat-icon>
+                    </button>
+                </div>
+                <h1>{{ post.title | titlecase }}</h1>
+            </div>
             <div>
                 <span>{{ post.created_at | date:'dd/MM/YYYY HH:mm' }}</span>
                 <span>{{ post.author.username }}</span>
