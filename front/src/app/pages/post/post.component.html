@@ -19,7 +19,7 @@
         <hr fxFill>
         <div fxFill fxLayout="column">
             <h2>Commentaires</h2>
-            <div class="comment-section" fxLayout="column">
+            <div ngClass.gt-sm="comment-section" fxLayout="column">
                 <cdk-virtual-scroll-viewport itemSize="100" fxFlex>
                     <app-comment *cdkVirtualFor="let comment of comments" [comment]="comment"></app-comment>
                 </cdk-virtual-scroll-viewport>
