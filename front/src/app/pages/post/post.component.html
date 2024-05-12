@@ -24,15 +24,26 @@
                     <app-comment *cdkVirtualFor="let comment of comments" [comment]="comment"></app-comment>
                 </cdk-virtual-scroll-viewport>
                 <form [formGroup]="commentForm" fxLayout="row" fxLayoutAlign="center" ngClass.lt-sm="small-form">
-                    <app-mdd-form-textarea 
-                        placeholder="Écrivez ici votre commentaire"
-                        myFormControlName="content"
-                        [myFormGroup]="commentForm"
-                        borderColor="#000000"
-                        borderWidth="1px"
-                        fxFlex="80"
-                        paddingRight="72px"
-                    ></app-mdd-form-textarea>
+                    <div fxLayout="column" fxFlex>
+                        <app-mdd-form-textarea 
+                            placeholder="Écrivez ici votre commentaire"
+                            myFormControlName="content"
+                            [myFormGroup]="commentForm"
+                            borderColor="#000000"
+                            borderWidth="1px"
+                            fxFlex="80"
+                            paddingRight="72px"
+                        ></app-mdd-form-textarea>
+                        <div
+                            *ngIf="contentField?.invalid && (contentField?.dirty || contentField?.touched)"
+                            class="alert alert-danger"
+                        >
+                            <div *ngIf="contentField?.errors?.['maxlength']">
+                                Longueur du message atteinte. ({{ contentField?.value?.length ?? 0 }}/255)
+                            </div>
+                        </div>
+                    </div>
+                    
                     <div fxFlex="20" fxLayoutAlign="center center" [ngClass.lt-sm]="'relative-send-button'">
                         <button mat-icon-button type="submit" (click)="onSendComment()" [disabled]="commentForm.invalid">
                             <mat-icon svgIcon="send" aria-hidden="true"></mat-icon>

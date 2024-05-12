@@ -22,7 +22,7 @@
             <div
                 *ngIf="emailFormField?.invalid && (emailFormField?.dirty || emailFormField?.touched)"
                 class="alert alert-danger"
-                >
+            >
                 <div *ngIf="emailFormField?.errors?.['required']">Champ requis</div>
                 <div *ngIf="emailFormField?.errors?.['email']">
                     Adresse e-mail invalide.

@@ -6,7 +6,7 @@ import { PostsApiService } from 'src/app/services/api/post/posts-api.service';
 import { Location } from '@angular/common';
 import { CommentDto } from 'src/app/interfaces/responses/CommentDto';
 import * as dayjs from 'dayjs';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-post',
@@ -33,7 +33,11 @@ export class PostComponent implements OnInit, OnDestroy {
         Validators.maxLength(255)
       ]
     ]
-  })
+  });
+
+  get contentField(): AbstractControl<string> | null {
+    return this.commentForm.get('content');
+  } 
   
   constructor(
     private route : ActivatedRoute,
