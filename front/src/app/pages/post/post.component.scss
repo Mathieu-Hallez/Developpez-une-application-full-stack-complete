@@ -13,11 +13,38 @@
     width: 100vw;
 }
 
-form button {
-    width: 48px;
-    height: 48px;
+.main {
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.comment-section {
+    // padding: 30px;
+}
+
+.relative-send-button {
+    position: relative;
+}
+
+.small-form {
+    height: 120px;
+}
+
+form {
+    width: 100%;
+    button{
+        width: 64px;
+        height: 64px;
+    }
 }
 
 mat-icon {
     transform: scale(2);
 }
+
+cdk-virtual-scroll-viewport {
+    min-width: 232px;
+    min-height: 250px;
+    overflow-x: hidden;
+}
+

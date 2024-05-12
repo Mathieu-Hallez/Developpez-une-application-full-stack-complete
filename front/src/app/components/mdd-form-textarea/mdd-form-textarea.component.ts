@@ -13,4 +13,10 @@ export class MddFormTextareaComponent {
   @Input() myFormGroup!: FormGroup;
 
   @Input() placeholder: string = "";
+
+  @Input() borderColor : string = "#7763C5";
+
+  @Input() borderWidth : string = "2px";
+
+  @Input() paddingRight : string = "5px";
 }

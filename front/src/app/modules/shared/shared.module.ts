@@ -8,6 +8,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { FormatOptionsPipe } from 'src/app/pipes/format-options.pipe';
 import { MddFormTextareaComponent } from 'src/app/components/mdd-form-textarea/mdd-form-textarea.component';
+import { CommentComponent } from 'src/app/components/comment/comment.component';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 const MatModule = [
   MatFormFieldModule,
@@ -20,18 +22,21 @@ const MatModule = [
     MddFormInputComponent,
     MddFormSelectComponent,
     FormatOptionsPipe,
-    MddFormTextareaComponent
+    MddFormTextareaComponent,
+    CommentComponent
   ],
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    ...MatModule
+    ...MatModule,
+    FlexLayoutModule
   ],
   exports: [
     MddFormInputComponent,
     MddFormSelectComponent,
     FormatOptionsPipe,
-    MddFormTextareaComponent
+    MddFormTextareaComponent,
+    CommentComponent
   ]
 })
 export class SharedModule { }

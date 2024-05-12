@@ -6,7 +6,7 @@
             </button>
         </div>
     </div>
-    <div fxFlex fxLayout="column">
+    <div fxFlex fxLayout="column" class="main">
         <div>
             <h1>{{ post.title | titlecase }}</h1>
             <div>
@@ -17,20 +17,29 @@
             <p>Content: {{ post.content }}</p>
         </div>
         <hr fxFill>
-        <div>
+        <div fxFill fxLayout="column">
             <h2>Commentaires</h2>
-            <cdk-virtual-scroll-viewport itemSize="100">
-                <dl>
-                    <!-- TODO Comment component -->
-                </dl>
-            </cdk-virtual-scroll-viewport>
-            <form>
-                <app-mdd-form-textarea placeholder="Écrivez ici votre commentaire"></app-mdd-form-textarea>
-                <button mat-icon-button>
-                    <mat-icon svgIcon="send" aria-hidden="true"></mat-icon>
-                </button>
-            </form>
+            <div class="comment-section" fxLayout="column">
+                <cdk-virtual-scroll-viewport itemSize="100" fxFlex>
+                    <app-comment *cdkVirtualFor="let comment of comments" [comment]="comment"></app-comment>
+                </cdk-virtual-scroll-viewport>
+                <form [formGroup]="commentForm" fxLayout="row" fxLayoutAlign="center" ngClass.lt-sm="small-form">
+                    <app-mdd-form-textarea 
+                        placeholder="Écrivez ici votre commentaire"
+                        myFormControlName="content"
+                        [myFormGroup]="commentForm"
+                        borderColor="#000000"
+                        borderWidth="1px"
+                        fxFlex="80"
+                        paddingRight="72px"
+                    ></app-mdd-form-textarea>
+                    <div fxFlex="20" fxLayoutAlign="center center" [ngClass.lt-sm]="'relative-send-button'">
+                        <button mat-icon-button type="submit" (click)="onSendComment()" [disabled]="commentForm.invalid">
+                            <mat-icon svgIcon="send" aria-hidden="true"></mat-icon>
+                        </button>
+                    </div>
+                </form>
+            </div>
         </div>
-        
     </div>
 </div>
