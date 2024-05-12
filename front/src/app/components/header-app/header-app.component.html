@@ -5,7 +5,7 @@
                 <a routerLink="session/posts" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Articles</a>
                 <a routerLink="session/topics" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Thèmes</a>
             </mat-nav-list>
-            <button mat-fab color="accent" aria-label="User profile icon" routerLink="session/profile">
+            <button mat-fab color="accent" aria-label="User profile icon" routerLink="session/profile" routerLinkActive="active">
                 <mat-icon svgIcon="user" aria-hidden="true"></mat-icon>
             </button>
         </div>
@@ -17,7 +17,7 @@
             <div *ngIf="!isSmall && this.sessionService.isLogged" class="menu">
                 <a routerLink="session/posts" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Articles</a>
                 <a routerLink="session/topics" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Thèmes</a>
-                <button mat-fab color="accent" aria-label="User profile icon" routerLink="session/profile">
+                <button mat-fab color="accent" aria-label="User profile icon" routerLink="session/profile" routerLinkActive="active">
                     <mat-icon svgIcon="user" aria-hidden="true"></mat-icon>
                 </button>
             </div>
