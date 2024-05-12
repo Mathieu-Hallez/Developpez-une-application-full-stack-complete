@@ -6,17 +6,19 @@
             </button>
         </div>
     </div>
-    <div fxFlex fxLayout="column" class="main">
-        <div>
-            <div fxLayout="row" fxLayoutAlign="start center">
+    <div fxFlex fxLayout="column" fxLayoutGap="25px" class="main">
+        <div fxLayout="column" fxLayoutGap="15px">
+            <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
                 <div class="return-arrow" *ngIf="xSmallBreakPoint">
                     <button mat-icon-button aria-label="Go back" (click)="goBack()">
                         <mat-icon svgIcon="arrow_left" aria-hidden="true"></mat-icon>
                     </button>
                 </div>
-                <h1>{{ post.title | titlecase }}</h1>
+                <div fxLayout="column" fxLayoutAlign="center center">
+                    <h1>{{ post.title | titlecase }}</h1>
+                </div>
             </div>
-            <div>
+            <div fxLayoutGap="50px">
                 <span>{{ post.created_at | date:'dd/MM/YYYY HH:mm' }}</span>
                 <span>{{ post.author.username }}</span>
                 <span>{{ post.topic.title | titlecase }}</span>
@@ -30,7 +32,7 @@
                 <cdk-virtual-scroll-viewport itemSize="100" fxFlex>
                     <app-comment *cdkVirtualFor="let comment of comments" [comment]="comment"></app-comment>
                 </cdk-virtual-scroll-viewport>
-                <form [formGroup]="commentForm" fxLayout="row" fxLayoutAlign="center" ngClass.lt-sm="small-form">
+                <form [formGroup]="commentForm" fxLayout="row" fxLayoutAlign="center center" ngClass.lt-sm="small-form">
                     <div fxLayout="column" fxFlex>
                         <app-mdd-form-textarea 
                             placeholder="Écrivez ici votre commentaire"

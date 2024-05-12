@@ -9,6 +9,7 @@
 
 .container {
     display: flex;
+    padding-top: 30px;
     height: 100vh;
     width: 100vw;
 }
@@ -23,12 +24,21 @@
 }
 
 .relative-send-button {
-    position: relative;
-    right: 72px;
+    position: absolute;
+    right: 32px;
 }
 
 .small-form {
     height: 120px;
+}
+
+.alert {
+    display: flex;
+    flex-flow: column nowrap;
+}
+
+.alert-danger {
+    color: #cc1d33
 }
 
 form {
@@ -49,12 +59,7 @@ cdk-virtual-scroll-viewport {
     overflow-x: hidden;
 }
 
-.alert {
-    display: flex;
-    flex-flow: column nowrap;
+h1 {
+    font-weight: 600;
+    font-size: 24px;
 }
-
-.alert-danger {
-    color: #cc1d33
-}
-
