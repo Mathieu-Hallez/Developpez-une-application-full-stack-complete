@@ -11,9 +11,11 @@
 
         <app-mdd-form-input placeholder="Titre de l'article" myformControlName="title" [myFormGroup]="postForm"></app-mdd-form-input>
 
-        <app-mdd-form-textarea placeholder="Contenu de l'article" myFormControlName="content" [myFormGroup]="postForm"></app-mdd-form-textarea>
+        <div class="text-area-container">
+            <app-mdd-form-textarea placeholder="Contenu de l'article" myFormControlName="content" [myFormGroup]="postForm"></app-mdd-form-textarea>
+        </div>
 
-        <div class="action-button">
+        <div class="action-button" fxLayoutAlign="center">
             <span *ngIf="errorMessage" class="alert-danger">{{ errorMessage }}</span>
             <button mat-flat-button color="primary" type="submit" (click)="onSubmitForm()" [disabled]="postForm.invalid">Créer</button>
         </div>
