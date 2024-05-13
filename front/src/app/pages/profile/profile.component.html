@@ -21,6 +21,30 @@
                 </div>
             </div>
 
+            <app-mdd-form-input placeholder="Mot de passe" myformControlName="password" type="password" [myFormGroup]="profileForm"></app-mdd-form-input>
+            <div
+                *ngIf="passwordFormField?.invalid && (passwordFormField?.dirty || passwordFormField?.touched)"
+                class="alert alert-danger"
+                >
+                <div class="alert" *ngIf="passwordFormField?.errors?.['pattern']">
+                    <span *ngIf="!passwordFormField?.value?.match('.{8,}')">Au moins 8 caractères de long.</span>
+                    <span *ngIf="!passwordFormField?.value?.match('^(?=.*[A-Z])')">Au moins une lettre majuscule.</span>
+                    <span *ngIf="!passwordFormField?.value?.match('(?=.*[a-z])')">Au moins une lettre minuscule.</span>
+                    <span *ngIf="!passwordFormField?.value?.match('(.*[0-9].*)')">Au moins un nombre.</span>
+                    <span *ngIf="!passwordFormField?.value?.match('(?=.*[!@#$%^&*])')">Au moins un caractère spéciale.</span>
+                </div>
+            </div>
+
+            <app-mdd-form-input placeholder="Confirmer le mot de passe" myformControlName="confirm" type="password" [myFormGroup]="profileForm"></app-mdd-form-input>
+            <div
+                *ngIf="confirmFormField?.invalid && (confirmFormField?.dirty || confirmFormField?.touched)"
+                class="alert alert-danger"
+            >
+                <div *ngIf="confirmFormField?.errors?.['matching']">
+                    Le mot de passe a confirmer est différent du mot de passe renseigné.
+                </div>
+            </div>
+
             <div class="action-button">
                 <span *ngIf="errorMessage" class="alert-danger">{{ errorMessage }}</span>
                 <button mat-flat-button color="primary" type="submit" (click)="onSubmitForm()" [disabled]="profileForm.invalid">Sauvegarder</button>

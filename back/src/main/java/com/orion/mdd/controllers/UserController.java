@@ -6,6 +6,7 @@ import com.orion.mdd.dtos.authentification.RegisterRequestDto;
 import com.orion.mdd.dtos.post.PostDto;
 import com.orion.mdd.dtos.topic.TopicDetailsDto;
 import com.orion.mdd.dtos.user.UpdateUserDto;
+import com.orion.mdd.dtos.user.UpdateUserRequestDto;
 import com.orion.mdd.mappers.AbstractPostMapper;
 import com.orion.mdd.mappers.AbstractTopicDetailMapper;
 import com.orion.mdd.mappers.AbstractUserMapper;
@@ -77,7 +78,7 @@ public class UserController {
     }
 
     @PutMapping("/")
-    public ResponseEntity<?> update(Authentication authentication, @Valid @RequestBody(required=false) RegisterRequestDto updateUserDto, BindingResult bindingResult) {
+    public ResponseEntity<?> update(Authentication authentication, @Valid @RequestBody(required=false) UpdateUserRequestDto updateUserDto, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             List<String> errorMessages = bindingResult.getAllErrors().stream()
                     .map(ObjectError::getDefaultMessage)
