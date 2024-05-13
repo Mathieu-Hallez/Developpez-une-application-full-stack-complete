@@ -77,7 +77,7 @@ public class AuthController {
 
             return ResponseEntity.ok(new TokenDto(jwtService.generateToken(authentication)));
         } catch (BadCredentialsException exception) {
-            return new ResponseEntity<>(new ApiResponse(exception.getMessage()), HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity<>(new ApiResponse("Error: " + exception.getMessage()), HttpStatus.BAD_REQUEST);
         }
     }
 
