@@ -1,12 +1,16 @@
-<mat-card appearance="outlined">
-    <mat-card-header fxLayout="column">
-        <mat-card-title fxFlex>{{ post.title | titlecase }}</mat-card-title>
-        <div fxLayout="row" fxFill>
-            <div fxFlex>{{ post.created_at | date:'dd/MM/YYYY HH:mm' }}</div>
-            <div fxFlex>{{ post.author.username }}</div>
-        </div>
-    </mat-card-header>
-    <mat-card-content>
-        {{ post.content }}
-    </mat-card-content>
-</mat-card>
+<button (click)="goToDetail()">
+    <mat-card appearance="outlined" fxLayout="column">
+        <mat-card-header fxLayout="column">
+            <mat-card-title fxFlex>{{ post.title | titlecase }}</mat-card-title>
+            <div fxLayout="row" fxFill>
+                <div fxFlex>{{ post.created_at | date:'dd/MM/YYYY HH:mm' }}</div>
+                <div fxFlex>{{ post.author.username }}</div>
+            </div>
+        </mat-card-header>
+        <mat-card-content>
+            <p class="content">
+                Content: {{ post.content }}
+            </p>
+        </mat-card-content>
+    </mat-card>
+</button>

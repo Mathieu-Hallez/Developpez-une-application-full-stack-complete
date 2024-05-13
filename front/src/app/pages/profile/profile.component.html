@@ -1,15 +1,37 @@
-<div fxFill>
-    <div>
+<div class="container" fxLayout="column" fxLayoutAlign="center center">
+    <div fxLayout="column" fxLayoutAlign="space-between center">
         <h2>Profil utilisateur</h2>
-        <form>
+        <form [formGroup]="profileForm" fxLayout="column" fxLayoutAlign="center center">
+            <app-mdd-form-input myformControlName="username" [myFormGroup]="profileForm"></app-mdd-form-input>
+            <div
+                *ngIf="usernameFormField?.invalid && (usernameFormField?.dirty || usernameFormField?.touched)"
+                class="alert alert-danger"
+            >
+                <div *ngIf="usernameFormField?.errors?.['required']">Champ requis</div>
+            </div>
 
+            <app-mdd-form-input myformControlName="email" [myFormGroup]="profileForm"></app-mdd-form-input>
+            <div
+                *ngIf="emailFormField?.invalid && (emailFormField?.dirty || emailFormField?.touched)"
+                class="alert alert-danger"
+            >
+                <div *ngIf="emailFormField?.errors?.['required']">Champ requis</div>
+                <div *ngIf="emailFormField?.errors?.['email']">
+                    Adresse e-mail invalide.
+                </div>
+            </div>
+
+            <div class="action-button">
+                <span *ngIf="errorMessage" class="alert-danger">{{ errorMessage }}</span>
+                <button mat-flat-button color="primary" type="submit" (click)="onSubmitForm()" [disabled]="profileForm.invalid">Sauvegarder</button>
+                <a href="" (click)="logout()">Se déconnecter</a>
+            </div>
         </form>
-        <a href="" (click)="logout()">Se déconnecter</a>
     </div>
-    <mat-divider inset></mat-divider>
-    <div>
+    <hr fxFill>
+    <div fxLayout="column" fxLayoutAlign="center center">
         <h2>Abonnements</h2>
-        <div>
+        <div class="topics-container" fxLayoutAlign="start center" fxLayoutAlign.lt-md="center stretch">
             <app-topic-card [unsubscribe-action]="true" *ngFor="let topic of (topics$ | async)" [topic]="topic" (unsubscribeSuccessfully)="fetchTopics()"></app-topic-card>
         </div>
     </div>

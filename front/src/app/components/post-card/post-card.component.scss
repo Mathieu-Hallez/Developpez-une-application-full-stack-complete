@@ -1,10 +1,38 @@
+button {
+    background: none;
+	color: inherit;
+	border: none;
+	padding: 0;
+	font: inherit;
+	cursor: pointer;
+	outline: inherit;
+    text-align: start;
+}
+
 mat-card {
     background-color: #F5F5F5;
     height: 180px;
     width: 359px;
+    border-radius: 8px;
+}
+
+mat-card-header div {
+    padding-bottom: 4px;
+    padding-top: 4px;
 }
 
 mat-card-content {
-    text-overflow: ellipsis;
+    padding-right: 16px;
+    padding-left: 16px;
+    padding-top: 4px;
+}
+
+.content {
+    display: -webkit-box;
+    -webkit-line-clamp: 5;
+    -webkit-box-orient: vertical;
     overflow: hidden;
+    font-size: 14px;
+    line-height: 16.94px;
+    font-weight: 400;
 }

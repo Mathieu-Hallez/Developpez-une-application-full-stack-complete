@@ -1,0 +1,8 @@
+<div [formGroup]="myFormGroup">
+    <select [formControlName]="myFormControlName" [ngClass]="{placeholder: myFormGroup.get(myFormControlName)?.value == ''}">
+        <option value="" disabled selected hidden class="placeholder">Sélectionner un thème</option>
+        <option *ngFor="let option of options" [value]="option.value">{{option.title}}</option>
+    </select>
+</div>
+
+

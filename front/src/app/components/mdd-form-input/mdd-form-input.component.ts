@@ -20,4 +20,6 @@ export class MddFormInputComponent {
   @Input()
   myFormGroup! : FormGroup;
 
+  @Input() placeholder: string = "";
+
 }

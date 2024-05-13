@@ -1,0 +1,48 @@
+.container {
+    padding: 40px
+}
+
+.topics-container {
+    padding: 15px;
+    display: flex;
+    flex-flow: row wrap;
+    gap: 30px;
+}
+
+h2 {
+    font-weight: 700;
+    font-size: 24px;
+}
+
+form {
+    gap: 25px
+}
+
+hr {
+    border-top: 1px solid #bbb;
+    border-radius: 1px;
+}
+
+.action-button {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    gap: 7px;
+}
+
+.alert {
+    display: flex;
+    flex-flow: column nowrap;
+}
+
+.alert-danger {
+    color: #cc1d33;
+}
+
+a {
+    color: #A40F0F;
+    font-weight: bold;
+    font-size: 14px;
+    font-style: normal;
+    text-decoration: none;
+}

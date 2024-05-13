@@ -1,0 +1,65 @@
+.return-arrow {
+    align-self: flex-start;
+
+    button {
+        justify-content: center;
+        align-content: center;
+    }
+}
+
+.container {
+    display: flex;
+    padding-top: 30px;
+    height: 100vh;
+    width: 100vw;
+}
+
+.main {
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.comment-section {
+    padding: 30px;
+}
+
+.relative-send-button {
+    position: absolute;
+    right: 32px;
+}
+
+.small-form {
+    height: 120px;
+}
+
+.alert {
+    display: flex;
+    flex-flow: column nowrap;
+}
+
+.alert-danger {
+    color: #cc1d33
+}
+
+form {
+    width: 100%;
+    button{
+        width: 64px;
+        height: 64px;
+    }
+}
+
+mat-icon {
+    transform: scale(2);
+}
+
+cdk-virtual-scroll-viewport {
+    min-width: 232px;
+    min-height: 250px;
+    overflow-x: hidden;
+}
+
+h1 {
+    font-weight: 600;
+    font-size: 24px;
+}

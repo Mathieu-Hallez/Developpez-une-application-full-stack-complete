@@ -12,23 +12,39 @@ import { TopicsComponent } from '../pages/topics/topics.component';
 import { ProfileComponent } from '../pages/profile/profile.component';
 import { MatDividerModule } from '@angular/material/divider';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { ReactiveFormsModule } from "@angular/forms";
+import { SharedModule } from './shared/shared.module';
+import { CreatePostComponent } from '../pages/create-post/create-post.component';
+import { PostComponent } from '../pages/post/post.component';
+import {ScrollingModule} from '@angular/cdk/scrolling';
 
 const MatModule = [
   MatCardModule,
   MatIconModule,
   MatButtonModule,
   MatDividerModule,
-  MatSnackBarModule
-]
+  MatSnackBarModule,
+  ScrollingModule
+];
 
 
 @NgModule({
-  declarations: [PostsComponent, PostCardComponent, TopicCardComponent, TopicsComponent, ProfileComponent],
+  declarations: [
+    PostsComponent,
+    PostCardComponent,
+    TopicCardComponent,
+    TopicsComponent,
+    ProfileComponent,
+    CreatePostComponent,
+    PostComponent
+  ],
   imports: [
     SessionRoutingModule,
     CommonModule,
     FlexLayoutModule,
-    ...MatModule
+    ...MatModule,
+    ReactiveFormsModule,
+    SharedModule
   ]
 })
 export class SessionModule { }
