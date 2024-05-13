@@ -69,6 +69,7 @@ public class SpringSecurityConfig {
                 )
                 .httpBasic(Customizer.withDefaults())
                 .cors((cors) -> cors.configurationSource(apiConfigurationSource()))
+                .logout(logout -> logout.logoutUrl("/api/logout"))
                 .build();
     }
 

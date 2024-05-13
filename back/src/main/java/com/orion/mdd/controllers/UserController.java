@@ -1,16 +1,14 @@
 package com.orion.mdd.controllers;
 
+import com.orion.mdd.configurations.SpringSecurityConfig;
 import com.orion.mdd.dtos.api.ApiResponse;
-import com.orion.mdd.dtos.authentification.TokenDto;
+import com.orion.mdd.dtos.authentification.RegisterRequestDto;
 import com.orion.mdd.dtos.post.PostDto;
 import com.orion.mdd.dtos.topic.TopicDetailsDto;
-import com.orion.mdd.dtos.topic.TopicDto;
 import com.orion.mdd.dtos.user.UpdateUserDto;
 import com.orion.mdd.mappers.AbstractPostMapper;
 import com.orion.mdd.mappers.AbstractTopicDetailMapper;
-import com.orion.mdd.mappers.AbstractTopicMapper;
 import com.orion.mdd.mappers.AbstractUserMapper;
-import com.orion.mdd.models.Topic;
 import com.orion.mdd.models.User;
 import com.orion.mdd.services.UserService;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -18,15 +16,19 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/users/")
@@ -42,6 +44,9 @@ public class UserController {
 
     @Autowired
     private AbstractUserMapper userMapper;
+
+    @Autowired
+    private SpringSecurityConfig springSecurityConfig;
 
     @GetMapping("/me")
     public ResponseEntity<?> getMe(Authentication authentication) {
@@ -72,7 +77,15 @@ public class UserController {
     }
 
     @PutMapping("/")
-    public ResponseEntity<?> update(Authentication authentication, @RequestBody(required=false) UpdateUserDto updateUserDto) {
+    public ResponseEntity<?> update(Authentication authentication, @Valid @RequestBody(required=false) RegisterRequestDto updateUserDto, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            List<String> errorMessages = bindingResult.getAllErrors().stream()
+                    .map(ObjectError::getDefaultMessage)
+                    .collect(Collectors.toList());
+
+            return ResponseEntity.badRequest().body(new ApiResponse("Error: " + String.join("\n", errorMessages)));
+        }
+
         User user = this.userService.getUser(authentication.getName());
         if(user == null) {
             return new ResponseEntity<ApiResponse>(new ApiResponse("Error: user not found."), HttpStatus.UNAUTHORIZED);
@@ -84,6 +97,10 @@ public class UserController {
 
         if(updateUserDto.getEmail() != null) {
             user.setEmail(updateUserDto.getEmail());
+        }
+
+        if(updateUserDto.getPassword() != null) {
+            user.setPassword(this.springSecurityConfig.passwordEncoder().encode(updateUserDto.getPassword()));
         }
 
         return new ResponseEntity<UpdateUserDto>(this.userMapper.toDto(this.userService.update(user)), HttpStatus.OK);
