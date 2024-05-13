@@ -30,4 +30,8 @@ export class UsersApiService {
   public updateUser(user : UpdateUserDto) : Observable<UpdateUserDto> {
     return this.httpClient.put<UpdateUserDto>(`${this.pathService}/`, user);
   }
+
+  public logout(): Observable<void> {
+    return this.httpClient.get<void>('/api/logout');
+  }
 }

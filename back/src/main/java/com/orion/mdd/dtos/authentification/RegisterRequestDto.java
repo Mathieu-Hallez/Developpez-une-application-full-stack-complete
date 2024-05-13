@@ -1,6 +1,7 @@
 package com.orion.mdd.dtos.authentification;
 
 import com.orion.mdd.security.ValidPassword;
+import jakarta.annotation.Nullable;
 import lombok.Data;
 
 @Data
