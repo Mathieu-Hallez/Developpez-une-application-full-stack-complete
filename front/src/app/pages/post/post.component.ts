@@ -8,6 +8,7 @@ import { CommentDto } from 'src/app/interfaces/responses/CommentDto';
 import * as dayjs from 'dayjs';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-post',
@@ -47,7 +48,8 @@ export class PostComponent implements OnInit, OnDestroy {
     private location : Location,
     private postsApiService : PostsApiService,
     private formBuilder : FormBuilder,
-    private responsive: BreakpointObserver
+    private responsive: BreakpointObserver,
+    private matSnackBar : MatSnackBar
   ) {}
 
   ngOnInit(): void {
@@ -94,8 +96,15 @@ export class PostComponent implements OnInit, OnDestroy {
       tap(comments => console.log("Comments of post: " + JSON.stringify(comments)))
     ).subscribe({
       next: comments => this.comments = comments,
-      error: err => {
-        //todo Toast
+      error: _ => {
+        this.matSnackBar.open(
+          "Une erreur s'est produite.",
+          "Fermer",
+          {
+            horizontalPosition: 'center',
+            verticalPosition: 'bottom'
+          }
+        );
       }
     });
   }
@@ -108,8 +117,15 @@ export class PostComponent implements OnInit, OnDestroy {
         this.commentForm.reset();
         this.fetchComments();
       },
-      error: err => {
-        //TODO TOAST for error
+      error: _ => {
+        this.matSnackBar.open(
+          "Une erreur s'est produite.",
+          "Fermer",
+          {
+            horizontalPosition: 'center',
+            verticalPosition: 'bottom'
+          }
+        );
       }
     })
   }
