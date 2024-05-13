@@ -2,9 +2,9 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable, Subject, takeUntil, tap } from 'rxjs';
 import { TopicDetailsDto } from 'src/app/interfaces/responses/TopicDetailsDto';
-import { UpdateUserDto } from 'src/app/interfaces/responses/UpdateUserDto';
 import { UsersApiService } from 'src/app/services/api/users/users-api.service';
 import { SessionService } from 'src/app/services/session.service';
+import CustomValidators from 'src/app/utils/CustomValidators';
 
 @Component({
   selector: 'app-profile',
@@ -16,21 +16,38 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   topics$! : Observable<TopicDetailsDto[]>;
 
-  profileForm : FormGroup = this.formBuilder.group({
-    username: [
-      '',
-      [
-        Validators.required
+  profileForm : FormGroup = this.formBuilder.group(
+    {
+      username: [
+        '',
+        [
+          Validators.required
+        ]
+      ],
+      email: [
+        '',
+        [
+          Validators.required,
+          Validators.email
+        ]
+      ],
+      password: [
+        '',
+        [
+          Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/)
+        ]
+      ],
+      confirm: [
+        '',
+        []
       ]
-    ],
-    email: [
-      '',
-      [
-        Validators.required,
-        Validators.email
+    },
+    {
+      validators: [
+        CustomValidators.match('password', 'confirm')
       ]
-    ]
-  });
+    }
+  );
 
   errorMessage : string | null = null;
 
@@ -40,6 +57,14 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   get emailFormField(): AbstractControl<string> | null {
     return this.profileForm.get('email');
+  }
+
+  get passwordFormField(): AbstractControl<string> | null {
+    return this.profileForm.get('password');
+  }
+
+  get confirmFormField(): AbstractControl<string> | null {
+    return this.profileForm.get('confirm');
   }
 
   constructor(
@@ -56,7 +81,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
       tap(user => console.log("User: " + JSON.stringify(user)))
     ).subscribe({
       next: user => {
-        this.profileForm.setValue({username: user.username, email: user.email});
+        this.profileForm.setValue({username: user.username, email: user.email, password: '', confirm: ''});
       }
     });
   }
@@ -76,12 +101,25 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
 
   onSubmitForm(): void {
-    const userUpdateRequest = this.profileForm.value as UpdateUserDto;
+    let userUpdateRequest : Record<string,any> = {};
+    if(this.profileForm.value['username']) {
+      userUpdateRequest['username'] = this.profileForm.value['username']
+    }
+    
+    if(this.profileForm.value['email']) {
+      userUpdateRequest['email'] = this.profileForm.value['email']
+    }
+    
+    if(this.profileForm.value['password']) {
+      userUpdateRequest['password'] = this.profileForm.value['password']
+    }
+    console.log("User Update: " + JSON.stringify(userUpdateRequest));
     this.userApiService.updateUser(userUpdateRequest).pipe(
       takeUntil(this.destroy$)
     ).subscribe({
       next: userUpdated => {
-        this.profileForm.setValue({username: userUpdated.username, email: userUpdated.email});
+        this.profileForm.setValue({username: userUpdated.username, email: userUpdated.email, password: '', confirm: ''});
+        this.sessionService.logout();
       },
       error: error => this.errorMessage = error.error.message
     })

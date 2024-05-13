@@ -3,8 +3,8 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { PostDto } from 'src/app/interfaces/responses/PostDto';
 import { TopicDetailsDto } from 'src/app/interfaces/responses/TopicDetailsDto';
-import { TopicDto } from 'src/app/interfaces/responses/TopicDto';
 import { UpdateUserDto } from 'src/app/interfaces/responses/UpdateUserDto';
+import { UpdateUserRequestDto } from 'src/app/interfaces/responses/UpdateUserRequestDto';
 
 @Injectable({
   providedIn: 'root'
@@ -27,7 +27,7 @@ export class UsersApiService {
     return this.httpClient.get<UpdateUserDto>(`${this.pathService}/me`);
   }
 
-  public updateUser(user : UpdateUserDto) : Observable<UpdateUserDto> {
+  public updateUser(user : UpdateUserRequestDto) : Observable<UpdateUserDto> {
     return this.httpClient.put<UpdateUserDto>(`${this.pathService}/`, user);
   }
 
