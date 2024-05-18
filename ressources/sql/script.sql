@@ -61,5 +61,6 @@ ALTER TABLE `SUBSCRIBE` ADD FOREIGN KEY (`topic_id`) REFERENCES `TOPIC` (`id`);
 
 INSERT INTO USER (email, password, username) VALUES ('test@test.com', '$2a$10$CCL8/7mMKD3zTk9p625Kzuf30Ykr7vWlKClsXW1Jb6x1v9AMtAVaK', 'test');
 INSERT INTO TOPIC (title, description) VALUES ('Java Topic', 'Java language topic');
-INSERT INTO POST (title, content, topic_id, author_id) VALUES ('Primary types', 'Lorem lipsu...', 1, 1);
+INSERT INTO TOPIC (title, description) VALUES ('C/C++ Topic', 'C/C++ language topic');
+INSERT INTO POST (title, content, topic_id, author_id) VALUES ('Primary types', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eget lobortis nibh. Pellentesque ac lorem mi. Donec id ullamcorper dolor. Quisque quis nisl et ligula faucibus elementum. Mauris nec mattis libero. Etiam quis lacus erat. Pellentesque felis ante, aliquam vehicula lobortis id, placerat a tortor. ', 1, 1);
 
