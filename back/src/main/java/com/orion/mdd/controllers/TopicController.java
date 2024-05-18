@@ -1,21 +1,24 @@
 package com.orion.mdd.controllers;
 
 import com.orion.mdd.dtos.api.ApiResponse;
-import com.orion.mdd.dtos.post.PostDto;
 import com.orion.mdd.dtos.topic.TopicDetailsDto;
 import com.orion.mdd.mappers.AbstractPostMapper;
 import com.orion.mdd.mappers.AbstractTopicDetailMapper;
-import com.orion.mdd.models.Post;
 import com.orion.mdd.models.Topic;
 import com.orion.mdd.models.User;
 import com.orion.mdd.services.PostService;
 import com.orion.mdd.services.TopicService;
 import com.orion.mdd.services.UserService;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
@@ -43,6 +46,22 @@ public class TopicController {
     private AbstractPostMapper postMapper;
 
     @GetMapping("/")
+    @ApiResponses(value = {
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200",
+                    description = "All topics details.",
+                    content = {@Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            array = @ArraySchema(schema = @Schema(implementation = TopicDetailsDto.class))
+                    )}
+            ),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "401",
+                    description = "Unauthorized",
+                    content = {@Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = ApiResponse.class)
+                    )}
+            )
+    })
     public ResponseEntity<?> getAllTopics(Authentication authentication) {
         List<TopicDetailsDto> topicDetailsDtos = new ArrayList<>();
         Iterable<Topic> topicsIterable = this.topicService.getAll();
@@ -63,6 +82,43 @@ public class TopicController {
     }
 
     @PutMapping("/{id}/subscribe")
+    @ApiResponses(value = {
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200",
+                    description = "Subscribe successfully.",
+                    content = {@Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = TopicDetailsDto.class)
+                    )}
+            ),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "400",
+                    description = "Bad Request",
+                    content = {@Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = ApiResponse.class)
+                    )}
+            ),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "401",
+                    description = "Unauthorized",
+                    content = {@Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = ApiResponse.class)
+                    )}
+            ),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "404",
+                    description = "Not Found",
+                    content = {@Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = ApiResponse.class)
+                    )}
+            ),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "500",
+                    description = "Internal Server Error",
+                    content = {@Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = ApiResponse.class)
+                    )}
+            )
+    })
     public ResponseEntity<?> subscribe(Authentication authentication, @PathVariable("id") final Integer id) {
         User user = this.userService.getUser(authentication.getName());
         if(user == null) {
@@ -92,6 +148,39 @@ public class TopicController {
     }
 
     @PutMapping("/{id}/unsubscribe")
+    @ApiResponses(value = {
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200",
+                    description = "Unsubscribe successfully."
+            ),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "400",
+                    description = "Bad Request",
+                    content = {@Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = ApiResponse.class)
+                    )}
+            ),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "401",
+                    description = "Unauthorized",
+                    content = {@Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = ApiResponse.class)
+                    )}
+            ),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "404",
+                    description = "Not Found",
+                    content = {@Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = ApiResponse.class)
+                    )}
+            ),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "500",
+                    description = "Internal Server Error",
+                    content = {@Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = ApiResponse.class)
+                    )}
+            )
+    })
     public ResponseEntity<?> unsubscribe(Authentication authentication, @PathVariable("id") final Integer id) {
         User user = this.userService.getUser(authentication.getName());
         if(user == null) {

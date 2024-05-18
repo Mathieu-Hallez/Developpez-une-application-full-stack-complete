@@ -2,7 +2,6 @@ package com.orion.mdd.services;
 
 import com.orion.mdd.models.User;
 import com.orion.mdd.repositories.UserRepository;
-import com.orion.mdd.security.ValidPassword;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.security.crypto.password.PasswordEncoder;

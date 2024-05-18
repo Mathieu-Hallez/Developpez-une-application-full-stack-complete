@@ -8,7 +8,6 @@ import org.mapstruct.Mappings;
 import org.mapstruct.ReportingPolicy;
 import org.springframework.stereotype.Component;
 
-import java.text.DateFormat;
 import java.time.format.DateTimeFormatter;
 import java.util.TimeZone;
 

@@ -1,6 +1,5 @@
 package com.orion.mdd.dtos.user;
 
-import jakarta.annotation.Nullable;
 import lombok.Data;
 
 @Data

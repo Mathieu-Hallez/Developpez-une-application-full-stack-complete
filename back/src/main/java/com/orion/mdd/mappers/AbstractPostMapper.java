@@ -1,7 +1,7 @@
 package com.orion.mdd.mappers;
 
-import com.orion.mdd.models.Post;
 import com.orion.mdd.dtos.post.PostDto;
+import com.orion.mdd.models.Post;
 import com.orion.mdd.services.CommentService;
 import com.orion.mdd.services.TopicService;
 import com.orion.mdd.services.UserService;

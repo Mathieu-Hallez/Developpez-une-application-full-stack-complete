@@ -4,22 +4,28 @@ import com.orion.mdd.dtos.api.ApiResponse;
 import com.orion.mdd.dtos.comment.CommentDto;
 import com.orion.mdd.dtos.comment.CommentPostDto;
 import com.orion.mdd.dtos.post.CreatePostDto;
+import com.orion.mdd.dtos.post.PostDto;
+import com.orion.mdd.dtos.topic.TopicDetailsDto;
 import com.orion.mdd.mappers.AbstractCommentMapper;
 import com.orion.mdd.mappers.AbstractPostMapper;
 import com.orion.mdd.models.Comment;
 import com.orion.mdd.models.Post;
-import com.orion.mdd.dtos.post.PostDto;
 import com.orion.mdd.models.Topic;
 import com.orion.mdd.models.User;
 import com.orion.mdd.services.CommentService;
 import com.orion.mdd.services.PostService;
 import com.orion.mdd.services.TopicService;
 import com.orion.mdd.services.UserService;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
@@ -55,6 +61,22 @@ public class PostController {
     private AbstractCommentMapper commentMapper;
 
     @GetMapping("/{id}")
+    @ApiResponses(value = {
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200",
+                    description = "Get a post detail.",
+                    content = {@Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = PostDto.class)
+                    )}
+            ),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "404",
+                    description = "Not Found",
+                    content = {@Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = ApiResponse.class)
+                    )}
+            )
+    })
     public ResponseEntity<PostDto> getPost(@PathVariable("id") final Integer id) {
         Post post = this.postService.getPost(id);
         if(post == null) {
@@ -64,6 +86,15 @@ public class PostController {
     }
 
     @GetMapping("/{id}/comments")
+    @ApiResponses(value = {
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200",
+                    description = "All post comments.",
+                    content = {@Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            array = @ArraySchema(schema = @Schema(implementation = CommentDto.class))
+                    )}
+            )
+    })
     public ResponseEntity<List<CommentDto>> getPostComments(@PathVariable("id") final Integer id) {
         List<CommentDto> commentDtos = new ArrayList<>();
         Iterable<Comment> commentIterable = this.commentService.getAllByPostId(id);
@@ -74,6 +105,36 @@ public class PostController {
     }
 
     @PostMapping("/create")
+    @ApiResponses(value = {
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200",
+                    description = "Post create successfully.",
+                    content = {@Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = ApiResponse.class)
+                    )}
+            ),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "401",
+                    description = "Unauthorized",
+                    content = {@Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = ApiResponse.class)
+                    )}
+            ),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "404",
+                    description = "Not Found",
+                    content = {@Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = ApiResponse.class)
+                    )}
+            ),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "500",
+                    description = "Internal Server Error",
+                    content = {@Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = ApiResponse.class)
+                    )}
+            )
+    })
     public ResponseEntity<ApiResponse> createAPost(Authentication authentication, @RequestBody final CreatePostDto createPostDto ) {
         try {
             System.out.println("Authentication name: " + authentication.getName());
@@ -107,6 +168,29 @@ public class PostController {
     }
 
     @PostMapping("/{id}/comment")
+    @ApiResponses(value = {
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200",
+                    description = "Comment post successfully.",
+                    content = {@Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = TopicDetailsDto.class)
+                    )}
+            ),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "401",
+                    description = "Unauthorized",
+                    content = {@Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = ApiResponse.class)
+                    )}
+            ),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "404",
+                    description = "Not Found",
+                    content = {@Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = ApiResponse.class)
+                    )}
+            )
+    })
     public ResponseEntity<ApiResponse> commentAPost(Authentication authentication, @PathVariable("id") final Integer id, @RequestBody final CommentPostDto commentPostDto) {
         Post post = this.postService.getPost(id);
         if(post == null) {

@@ -2,7 +2,6 @@ package com.orion.mdd.controllers;
 
 import com.orion.mdd.configurations.SpringSecurityConfig;
 import com.orion.mdd.dtos.api.ApiResponse;
-import com.orion.mdd.dtos.authentification.RegisterRequestDto;
 import com.orion.mdd.dtos.post.PostDto;
 import com.orion.mdd.dtos.topic.TopicDetailsDto;
 import com.orion.mdd.dtos.user.UpdateUserDto;
@@ -50,6 +49,22 @@ public class UserController {
     private SpringSecurityConfig springSecurityConfig;
 
     @GetMapping("/me")
+    @ApiResponses(value = {
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200",
+                    description = "User information.",
+                    content = {@Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = UpdateUserDto.class)
+                    )}
+            ),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "401",
+                    description = "Unauthorized",
+                    content = {@Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = ApiResponse.class)
+                    )}
+            )
+    })
     public ResponseEntity<?> getMe(Authentication authentication) {
         User user = this.userService.getUser(authentication.getName());
         if(user == null) {
@@ -60,6 +75,22 @@ public class UserController {
     }
 
     @GetMapping("/subscriptions")
+    @ApiResponses(value = {
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200",
+                    description = "All subscribe topics.",
+                    content = {@Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            array = @ArraySchema(schema = @Schema(implementation = TopicDetailsDto.class))
+                    )}
+            ),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "401",
+                    description = "Unauthorized",
+                    content = {@Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = ApiResponse.class)
+                    )}
+            )
+    })
     public ResponseEntity<?> getAllSubscriptions(Authentication authentication) {
         List<TopicDetailsDto> topicDetailsDtos = new ArrayList<>();
 
@@ -78,6 +109,29 @@ public class UserController {
     }
 
     @PutMapping("/")
+    @ApiResponses(value = {
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200",
+                    description = "User updated.",
+                    content = {@Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = UpdateUserDto.class)
+                    )}
+            ),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "401",
+                    description = "Unauthorized",
+                    content = {@Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = ApiResponse.class)
+                    )}
+            ),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "400",
+                    description = "BadRequest",
+                    content = {@Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = ApiResponse.class)
+                    )}
+            )
+    })
     public ResponseEntity<?> update(Authentication authentication, @Valid @RequestBody(required=false) UpdateUserRequestDto updateUserDto, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             List<String> errorMessages = bindingResult.getAllErrors().stream()
