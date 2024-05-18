@@ -1,10 +1,10 @@
+import { Location } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
 import { LoginRequest } from 'src/app/interfaces/requests/LoginRequest';
 import { AuthenticationService } from 'src/app/services/api/authentification/authentication.service';
-import { Location } from '@angular/common';
 import { SessionService } from 'src/app/services/session.service';
 
 @Component({
@@ -62,7 +62,7 @@ export class SignInComponent implements OnInit, OnDestroy {
         this.router.navigateByUrl('/session/posts');
       },
       error: error => this.errorMessage = error.error.message
-    })
+    });
   }
 
   goBack(): void {

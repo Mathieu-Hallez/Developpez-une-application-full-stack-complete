@@ -1,3 +1,5 @@
+@use '../../../styles/danger.scss';
+
 .container {
     padding: 40px
 }
@@ -28,15 +30,6 @@ hr {
     flex-flow: column nowrap;
     align-items: center;
     gap: 7px;
-}
-
-.alert {
-    display: flex;
-    flex-flow: column nowrap;
-}
-
-.alert-danger {
-    color: #cc1d33;
 }
 
 a {

@@ -1,5 +1,6 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, Output } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Subject, takeUntil } from 'rxjs';
 import { TopicDetailsDto } from 'src/app/interfaces/responses/TopicDetailsDto';
 import { TopicsApiService } from 'src/app/services/api/topic/topics-api.service';
 
@@ -8,11 +9,13 @@ import { TopicsApiService } from 'src/app/services/api/topic/topics-api.service'
   templateUrl: './topic-card.component.html',
   styleUrls: ['./topic-card.component.scss']
 })
-export class TopicCardComponent {
+export class TopicCardComponent implements OnDestroy {
   @Input() topic! : TopicDetailsDto;
   @Input('unsubscribe-action') hasUnsubscribeBtn : boolean = false;
 
   @Output() unsubscribeSuccessfully : EventEmitter<void> = new EventEmitter();
+
+  private destroy$ : Subject<boolean> = new Subject<boolean>();
 
   errorMessage : string | null = null;
 
@@ -21,8 +24,16 @@ export class TopicCardComponent {
     private matSnackBar : MatSnackBar
   ) {}
 
+  ngOnDestroy(): void {
+    this.destroy$.next(true);
+  }
+
   subscribe(): void {
-    this.topicApiService.subscribe(this.topic.id).subscribe({
+    this.topicApiService.subscribe(this.topic.id)
+    .pipe(
+      takeUntil(this.destroy$)
+    )
+    .subscribe({
       next: topic => {
         this.topic = topic;
       },
@@ -33,7 +44,11 @@ export class TopicCardComponent {
   }
 
   unsubscribe(): void {
-    this.topicApiService.unsubscribe(this.topic.id).subscribe({
+    this.topicApiService.unsubscribe(this.topic.id)
+    .pipe(
+      takeUntil(this.destroy$)
+    )
+    .subscribe({
       next: _ => this.unsubscribeSuccessfully.emit(),
       error: _ => {
         this.matSnackBar.open(
@@ -45,6 +60,6 @@ export class TopicCardComponent {
           }
         );
       }
-    })
+    });
   }
 }

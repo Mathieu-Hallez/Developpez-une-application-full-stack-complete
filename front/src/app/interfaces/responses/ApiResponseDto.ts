@@ -1,3 +1,3 @@
 export interface ApiResponseDto {
-    message : string
+    message : string;
 }

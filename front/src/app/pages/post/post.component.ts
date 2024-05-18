@@ -1,14 +1,14 @@
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { Location } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
+import * as dayjs from 'dayjs';
 import { Subject, map, takeUntil, tap } from 'rxjs';
+import { CommentDto } from 'src/app/interfaces/responses/CommentDto';
 import { PostDto } from 'src/app/interfaces/responses/PostDto';
 import { PostsApiService } from 'src/app/services/api/post/posts-api.service';
-import { Location } from '@angular/common';
-import { CommentDto } from 'src/app/interfaces/responses/CommentDto';
-import * as dayjs from 'dayjs';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-post',
@@ -70,15 +70,16 @@ export class PostComponent implements OnInit, OnDestroy {
     });
 
     this.responsive.observe(Breakpoints.XSmall)
-      .subscribe(result => {
-
+    .pipe(
+      takeUntil(this.destroy$)
+    )
+    .subscribe(result => {
         if (result.matches) {
           this.xSmallBreakPoint = true;
         } else {
           this.xSmallBreakPoint = false;
         }
-
-  });
+    });
   }
 
   ngOnDestroy(): void {
@@ -127,6 +128,6 @@ export class PostComponent implements OnInit, OnDestroy {
           }
         );
       }
-    })
+    });
   }
 }

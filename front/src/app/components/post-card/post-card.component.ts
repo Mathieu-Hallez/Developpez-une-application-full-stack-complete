@@ -16,7 +16,7 @@ export class PostCardComponent {
   ) {}
 
   goToDetail(): void {
-    this.router.navigateByUrl(`/session/posts/${this.post.id}`)
+    this.router.navigateByUrl(`/session/posts/${this.post.id}`);
   }
 
 }

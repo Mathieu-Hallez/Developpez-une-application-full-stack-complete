@@ -1,22 +1,22 @@
-import { NgModule } from '@angular/core';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 import { CommonModule } from '@angular/common';
-import { SessionRoutingModule } from '../routers/session-routing.module';
-import { PostsComponent } from '../pages/posts/posts.component';
-import { PostCardComponent } from '../components/post-card/post-card.component';
-import { MatCardModule } from '@angular/material/card';
+import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
-import { TopicCardComponent } from '../components/topic-card/topic-card.component';
-import { TopicsComponent } from '../pages/topics/topics.component';
-import { ProfileComponent } from '../pages/profile/profile.component';
-import { MatDividerModule } from '@angular/material/divider';
-import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { ReactiveFormsModule } from "@angular/forms";
-import { SharedModule } from './shared/shared.module';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatIconModule } from '@angular/material/icon';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { PostCardComponent } from '../components/post-card/post-card.component';
+import { TopicCardComponent } from '../components/topic-card/topic-card.component';
 import { CreatePostComponent } from '../pages/create-post/create-post.component';
 import { PostComponent } from '../pages/post/post.component';
-import {ScrollingModule} from '@angular/cdk/scrolling';
+import { PostsComponent } from '../pages/posts/posts.component';
+import { ProfileComponent } from '../pages/profile/profile.component';
+import { TopicsComponent } from '../pages/topics/topics.component';
+import { SessionRoutingModule } from '../routers/session-routing.module';
+import { SharedModule } from './shared/shared.module';
 
 const MatModule = [
   MatCardModule,

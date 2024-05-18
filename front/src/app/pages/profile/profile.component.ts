@@ -113,7 +113,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
     if(this.profileForm.value['password']) {
       userUpdateRequest['password'] = this.profileForm.value['password']
     }
-    console.log("User Update: " + JSON.stringify(userUpdateRequest));
     this.userApiService.updateUser(userUpdateRequest).pipe(
       takeUntil(this.destroy$)
     ).subscribe({
@@ -122,6 +121,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
         this.sessionService.logout();
       },
       error: error => this.errorMessage = error.error.message
-    })
+    });
   }
 }

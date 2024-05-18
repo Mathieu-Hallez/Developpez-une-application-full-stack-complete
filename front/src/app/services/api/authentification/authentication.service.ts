@@ -1,10 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { RegisterRequest } from '../../../interfaces/requests/RegisterRequest';
 import { LoginRequest } from 'src/app/interfaces/requests/LoginRequest';
-import { TokenDto } from 'src/app/interfaces/responses/TokenDto';
 import { ApiResponseDto } from 'src/app/interfaces/responses/ApiResponseDto';
+import { TokenDto } from 'src/app/interfaces/responses/TokenDto';
+import { RegisterRequest } from '../../../interfaces/requests/RegisterRequest';
 
 @Injectable({
   providedIn: 'root'

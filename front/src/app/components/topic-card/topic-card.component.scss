@@ -1,3 +1,5 @@
+@use '../../../styles/danger.scss';
+
 mat-card {
     background-color: #F5F5F5;
     height: 161px;
@@ -14,8 +16,4 @@ mat-card-footer {
 mat-card-content {
     text-overflow: ellipsis;
     overflow: hidden;
-}
-
-.alert-danger {
-    color: #cc1d33
 }
