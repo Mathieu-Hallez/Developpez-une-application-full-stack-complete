@@ -34,6 +34,18 @@
     height: 120px;
 }
 
+.header-post {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    div {
+        display: flex;
+        flex-wrap: nowrap;
+        align-items: center;
+        height: 50px;
+    }
+}
+
 form {
     width: 100%;
     button{
@@ -52,7 +64,3 @@ cdk-virtual-scroll-viewport {
     overflow-x: hidden;
 }
 
-h1 {
-    font-weight: 600;
-    font-size: 24px;
-}

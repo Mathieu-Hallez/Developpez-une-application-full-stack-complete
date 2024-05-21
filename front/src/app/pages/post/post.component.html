@@ -1,22 +1,13 @@
 <div *ngIf="post" class="container" fxLayout="row" fxLayoutAlign="start start">
-    <div *ngIf="!xSmallBreakPoint">
-        <div class="return-arrow">
-            <button mat-icon-button aria-label="Go back" (click)="goBack()">
-                <mat-icon svgIcon="arrow_left" aria-hidden="true"></mat-icon>
-            </button>
-        </div>
-    </div>
     <div fxFlex fxLayout="column" fxLayoutGap="25px" class="main">
         <div fxLayout="column" fxLayoutGap="15px">
-            <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
-                <div class="return-arrow" *ngIf="xSmallBreakPoint">
+            <div class="header-post" fxFlex fxLayout="row" fxLayoutAlign="start center">
+                <div class="return-arrow">
                     <button mat-icon-button aria-label="Go back" (click)="goBack()">
                         <mat-icon svgIcon="arrow_left" aria-hidden="true"></mat-icon>
                     </button>
                 </div>
-                <div fxLayout="column" fxLayoutAlign="center center">
-                    <h1>{{ post.title | titlecase }}</h1>
-                </div>
+                <h1>{{ post.title | titlecase }}</h1>
             </div>
             <div fxLayoutGap="50px">
                 <span>{{ post.created_at | date:'dd/MM/YYYY HH:mm' }}</span>
