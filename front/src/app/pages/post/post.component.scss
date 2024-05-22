@@ -1,11 +1,12 @@
 @use '../../../styles/danger.scss';
+@use '../../../styles/styles.scss';
 
 .return-arrow {
     align-self: flex-start;
-
     button {
         justify-content: center;
         align-content: center;
+        margin-bottom: 30%;
     }
 }
 
@@ -22,12 +23,13 @@
 }
 
 .comment-section {
-    padding: 30px;
+    padding: 15px;
+    padding-left: 30px;
 }
 
 .relative-send-button {
     position: absolute;
-    right: 32px;
+    right: 16px;
 }
 
 .small-form {
@@ -35,9 +37,6 @@
 }
 
 .header-post {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
     div {
         display: flex;
         flex-wrap: nowrap;
@@ -46,8 +45,23 @@
     }
 }
 
+.body-detail {
+    margin-left: 70px;
+}
+
+.comments-container {
+    margin-right: 84px;
+}
+
 form {
+    background-color: white;
+    position: sticky;
+    bottom: 0px;
+    padding-bottom: 20px;
     width: 100%;
+    div {
+        height: 120px;
+    }
     button{
         width: 64px;
         height: 64px;
@@ -56,11 +70,5 @@ form {
 
 mat-icon {
     transform: scale(2);
-}
-
-cdk-virtual-scroll-viewport {
-    min-width: 232px;
-    min-height: 250px;
-    overflow-x: hidden;
 }
 
