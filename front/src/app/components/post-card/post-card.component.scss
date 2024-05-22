@@ -1,3 +1,28 @@
+.content {
+    display: -webkit-box;
+    -webkit-line-clamp: 5;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    font-size: 14px;
+    line-height: 16.94px;
+    font-weight: 400;
+}
+
+.sm-content {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    font-size: 14px;
+    line-height: 16.94px;
+    font-weight: 400;
+}
+
+.sm-card {
+    width: 265px;
+    height: 132px;
+}
+
 button {
     background: none;
 	color: inherit;
@@ -16,23 +41,15 @@ mat-card {
     border-radius: 8px;
 }
 
-mat-card-header div {
-    padding-bottom: 4px;
+mat-card-header {
     padding-top: 4px;
+    padding-left: 8px;
+    padding-right: 8px;
 }
 
 mat-card-content {
-    padding-right: 16px;
-    padding-left: 16px;
-    padding-top: 4px;
+    padding-bottom: 4px;
+    padding-left: 8px;
+    padding-right: 8px;
 }
 
-.content {
-    display: -webkit-box;
-    -webkit-line-clamp: 5;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    font-size: 14px;
-    line-height: 16.94px;
-    font-weight: 400;
-}
