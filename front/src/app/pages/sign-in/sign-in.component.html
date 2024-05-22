@@ -1,5 +1,5 @@
 <div class="container">
-    <div class="return-arrow">
+    <div [ngClass.gt-xs]="'return-arrow'" [ngClass.lt-sm]="'sm-return-arrow'">
         <button mat-icon-button aria-label="Go back" (click)="goBack()">
             <mat-icon svgIcon="arrow_left" aria-hidden="true"></mat-icon>
         </button>

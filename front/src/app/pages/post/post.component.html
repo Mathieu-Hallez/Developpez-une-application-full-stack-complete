@@ -1,64 +1,57 @@
 <div *ngIf="post" class="container" fxLayout="row" fxLayoutAlign="start start">
-    <div *ngIf="!xSmallBreakPoint">
-        <div class="return-arrow">
-            <button mat-icon-button aria-label="Go back" (click)="goBack()">
-                <mat-icon svgIcon="arrow_left" aria-hidden="true"></mat-icon>
-            </button>
-        </div>
-    </div>
     <div fxFlex fxLayout="column" fxLayoutGap="25px" class="main">
         <div fxLayout="column" fxLayoutGap="15px">
-            <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
-                <div class="return-arrow" *ngIf="xSmallBreakPoint">
+            <div class="header-post" fxFlex fxLayout="row" fxLayoutGap="20">
+                <div class="return-arrow">
                     <button mat-icon-button aria-label="Go back" (click)="goBack()">
                         <mat-icon svgIcon="arrow_left" aria-hidden="true"></mat-icon>
                     </button>
                 </div>
-                <div fxLayout="column" fxLayoutAlign="center center">
-                    <h1>{{ post.title | titlecase }}</h1>
+                <h1>{{ post.title | titlecase }}</h1>
+            </div>
+            <div [ngClass.gt-xs]="'body-detail'" fxLayout="column" fxLayoutGap="30">
+                <div fxLayoutGap="50px">
+                    <span class="mdd-text">{{ post.created_at | date:'dd/MM/YYYY HH:mm' }}</span>
+                    <span class="mdd-text">{{ post.author.username }}</span>
+                    <span class="mdd-text">{{ post.topic.title | titlecase }}</span>
                 </div>
-            </div>
-            <div fxLayoutGap="50px">
-                <span>{{ post.created_at | date:'dd/MM/YYYY HH:mm' }}</span>
-                <span>{{ post.author.username }}</span>
-                <span>{{ post.topic.title | titlecase }}</span>
-            </div>
-            <p>Content: {{ post.content }}</p>
-        </div>
-        <hr fxFill>
-        <div fxFill fxLayout="column">
-            <h2>Commentaires</h2>
-            <div ngClass.gt-sm="comment-section" fxLayout="column">
-                <cdk-virtual-scroll-viewport itemSize="100" fxFlex>
-                    <app-comment *cdkVirtualFor="let comment of comments" [comment]="comment"></app-comment>
-                </cdk-virtual-scroll-viewport>
-                <form [formGroup]="commentForm" fxLayout="row" fxLayoutAlign="center center" ngClass.lt-sm="small-form">
-                    <div fxLayout="column" fxFlex>
-                        <app-mdd-form-textarea 
-                            placeholder="Écrivez ici votre commentaire"
-                            myFormControlName="content"
-                            [myFormGroup]="commentForm"
-                            borderColor="#000000"
-                            borderWidth="1px"
-                            fxFlex="80"
-                            paddingRight="72px"
-                        ></app-mdd-form-textarea>
-                        <div
-                            *ngIf="contentField?.invalid && (contentField?.dirty || contentField?.touched)"
-                            class="alert alert-danger"
-                        >
-                            <div *ngIf="contentField?.errors?.['maxlength']">
-                                Longueur du message atteinte. ({{ contentField?.value?.length ?? 0 }}/255)
-                            </div>
+                <p class="mdd-text">Content: {{ post.content }}</p>
+                <hr fxFill>
+                <div fxFill fxLayout="column">
+                    <h2>Commentaires</h2>
+                    <div ngClass.gt-sm="comment-section" fxLayout="column" fxLayoutGap="20">
+                        <div class="comments-container">
+                            <app-comment *ngFor="let comment of comments" [comment]="comment"></app-comment>
                         </div>
+                        <form [formGroup]="commentForm" fxLayout="row" fxLayoutAlign="center center" ngClass.lt-sm="small-form" fxLayoutGap="20">
+                            <div fxLayout="column" fxFlex>
+                                <app-mdd-form-textarea 
+                                    placeholder="Écrivez ici votre commentaire"
+                                    myFormControlName="content"
+                                    [myFormGroup]="commentForm"
+                                    borderColor="#000000"
+                                    borderWidth="1px"
+                                    fxFlex="80"
+                                    paddingRight="72px"
+                                ></app-mdd-form-textarea>
+                                <div
+                                    *ngIf="contentField?.invalid && (contentField?.dirty || contentField?.touched)"
+                                    class="alert alert-danger"
+                                >
+                                    <div class="mdd-text" *ngIf="contentField?.errors?.['maxlength']">
+                                        Longueur du message atteinte. ({{ contentField?.value?.length ?? 0 }}/255)
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div fxLayoutAlign="start center" [ngClass.lt-sm]="'relative-send-button'">
+                                <button mat-icon-button type="submit" (click)="onSendComment()" [disabled]="commentForm.invalid">
+                                    <mat-icon svgIcon="send" aria-hidden="true"></mat-icon>
+                                </button>
+                            </div>
+                        </form>
                     </div>
-                    
-                    <div fxFlex="20" fxLayoutAlign="center center" [ngClass.lt-sm]="'relative-send-button'">
-                        <button mat-icon-button type="submit" (click)="onSendComment()" [disabled]="commentForm.invalid">
-                            <mat-icon svgIcon="send" aria-hidden="true"></mat-icon>
-                        </button>
-                    </div>
-                </form>
+                </div>
             </div>
         </div>
     </div>

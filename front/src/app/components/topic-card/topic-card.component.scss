@@ -1,5 +1,10 @@
 @use '../../../styles/danger.scss';
 
+.sm-card {
+    width: 265px;
+    height: 181px;
+}
+
 mat-card {
     background-color: #F5F5F5;
     height: 161px;

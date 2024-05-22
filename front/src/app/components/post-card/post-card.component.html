@@ -1,14 +1,14 @@
 <button (click)="goToDetail()">
-    <mat-card appearance="outlined" fxLayout="column">
-        <mat-card-header fxLayout="column">
-            <mat-card-title fxFlex>{{ post.title | titlecase }}</mat-card-title>
-            <div fxLayout="row" fxFill>
-                <div fxFlex>{{ post.created_at | date:'dd/MM/YYYY HH:mm' }}</div>
-                <div fxFlex>{{ post.author.username }}</div>
+    <mat-card appearance="outlined" fxLayout="column" [ngClass.lt-sm]="'sm-card'" fxLayoutGap="10" fxLayoutGap.lt-sm="5">
+        <mat-card-header fxLayout="column" fxLayoutGap="10" fxLayoutGap.lt-sm="3">
+            <mat-card-title>{{ post.title | titlecase }}</mat-card-title>
+            <div fxLayout="row" fxLayoutGap="30" fxLayoutGap.lt-sm="15">
+                <span>{{ post.created_at | date:'dd/MM/YYYY HH:mm' }}</span>
+                <span>{{ post.author.username }}</span>
             </div>
         </mat-card-header>
         <mat-card-content>
-            <p class="content">
+            <p class="content" [ngClass.lt-sm]="'sm-content'">
                 Content: {{ post.content }}
             </p>
         </mat-card-content>
